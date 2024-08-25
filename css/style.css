@@ -26,8 +26,16 @@ body {
 
 
 
+:root {
+  --button-color: rgb(25, 25, 25); 
+  --button-text-color: rgb(211, 116, 255);
+}
 
 
+#symmetry.active {
+    /* background-color: rgb(0, 107, 9);  */
+    color: rgb(164, 255, 154)
+}
 
 .container {
     background-color: rgb(47, 0, 45);
@@ -44,15 +52,15 @@ canvas {
 }
 
 .custom-file-upload {
-    background-color: darkgreen;
-    color: gold;
+    background-color: var(--button-color);
+    color: var(--button-text-color);
     padding: 10px; 
     cursor: pointer; 
 }
 
 #saveImageButton {
-      background-color: darkgreen;
-      color: gold;
+      background-color: var(--button-color);
+      color: var(--button-text-color);
       padding: 10px;
       border: none;
       cursor: pointer;
@@ -60,14 +68,9 @@ canvas {
 
 
 
-/* .input{
-    background-color:darkgreen;
-    color:gold;
-} */
-
 .tools {
-    background-color:rgb(0, 0, 0);
-    color: rgb(255, 255, 255);
+    background-color:var(--button-color);
+    color: var(--button-text-color);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -88,6 +91,19 @@ canvas {
 }
 
 button { 
-    background-color: rgb(0, 37, 0);
-    color: white;
+    background-color: var(--button-color);
+    color: var(--button-text-color);
+}
+
+button:hover,
+.custom-file-upload:hover,
+input[type="color"]:hover,
+input[type="range"]:hover {
+  opacity: 0.8;
+  cursor: pointer;
+  color: gold;
+}
+
+button:hover {
+  background-color: rgb(34, 34, 34); 
 }
