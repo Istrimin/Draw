@@ -3,35 +3,55 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Music Club</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>Music Club & Drawing Canvas</title>
+  <link rel="stylesheet" href="css/style.css"> 
   <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
-  <script src="script.js" defer></script>
+  <script src="script.js" defer></script> 
+  <style>
+    /* Styles for both sections */
+    body {
+      font-family: sans-serif;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .section {
+      margin-bottom: 30px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    canvas {
+      border: 1px solid #000;
+    }
+  </style>
+</head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawing Canvas</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        canvas {
+            border: 1px solid #6e0000;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <h1>Music Club</h1>
-    </div>
-  </header>
-  <main>
-    <div class="click-counter">
-      <p>Количество кликов: <span id="click-count">0</span></p>
-      <button id="click-button">Click Me!</button>
-    </div>
-    <div class="music-player">
-      <button id="get-audio-button">Получить список аудиозаписей</button>
-      <ul id="audio-list"></ul>
-      <audio id="audio-player" controls></audio>
-    </div>
-    <div class="token-display">
-      <p>Токен доступа: <span id="token-display"></span></p>
-    </div>
-  </main>
-  <footer>
-    <div class="container">
-      <p>&copy; 2023 Music Club. Все права защищены.</p>
-    </div>
-  </footer>
+    <canvas id="drawingCanvas" width="500" height="500"></canvas>
 </body>
 </html>
