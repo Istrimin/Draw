@@ -33,7 +33,7 @@ body {
 
 
 #symmetry.active {
-    /* background-color: rgb(0, 107, 9);  */
+    background-color: rgb(0, 42, 4); 
     color: rgb(164, 255, 154)
 }
 
@@ -41,14 +41,14 @@ body {
     background-color: rgb(47, 0, 45);
     background-size:cover;
     padding: 5px;
-    border-radius: 5px;
+    border-radius: 20px;
     text-align: center;
 }
 
 canvas {
-    border: 1px solid black;
-    cursor: crosshair;
-    margin-bottom: 20px;
+    width: 100%; /* Make the canvas take up full width */
+    height: 100%; /* Make the canvas take up full height */
+    border-radius: 20px;
 }
 
 .custom-file-upload {
@@ -69,7 +69,7 @@ canvas {
 
 
 .tools {
-    background-color:var(--button-color);
+    /* background-color:var(--button-color); */
     color: var(--button-text-color);
     display: flex;
     flex-direction: column;
@@ -77,6 +77,7 @@ canvas {
 }
 
 .color-picker {
+    display: flex;
     background-color:gold;
     margin-bottom: 10px;
 }
@@ -93,7 +94,10 @@ canvas {
 button { 
     background-color: var(--button-color);
     color: var(--button-text-color);
+    font-style: italic;
+    font-size: 18px; /* Add this line with your desired font size */
 }
+
 
 button:hover,
 .custom-file-upload:hover,
