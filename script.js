@@ -53,10 +53,6 @@ function inviteFriends() {
         });
 }
 
-
-
-
-
 function redrawCanvas() {
     ctx.fillStyle = backgroundPicker.value;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -66,7 +62,6 @@ function redrawCanvas() {
 function startDrawing(e) {
     isDrawing = true;
     [lastX, lastY] = [e.offsetX, e.offsetY];
-    saveState();
 }
 
 function draw(e) {
@@ -76,24 +71,27 @@ function draw(e) {
     ctx.lineTo(e.offsetX, e.offsetY);
     ctx.strokeStyle = isEraser ? backgroundPicker.value : colorPicker.value;
     ctx.lineWidth = brushSize.value;
-    // ctx.lineCap = 'round';
+    ctx.lineCap = brushSize.value >= 3 ? 'round' : 'butt'; // скругляем края
+
     ctx.globalAlpha = opacity.value / 100;
 
-    // Включение/отключение сглаживания в зависимости от размера кисти
     ctx.imageSmoothingEnabled = brushSize.value >= 3;
 
     ctx.stroke();
     [lastX, lastY] = [e.offsetX, e.offsetY];
-}
 
-function stopDrawing() {
-    isDrawing = false;
 }
-
 function saveState() {
     history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
     redoHistory = [];
 }
+function stopDrawing() {
+    isDrawing = false;
+    saveState();
+}
+
+
+
 
 function undo() {
     if (history.length > 1) {

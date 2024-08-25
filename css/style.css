@@ -14,6 +14,53 @@ body {
     justify-content: center;
 }
 
+/* 
+#colorPicker {
+  display: none;
+}
+
+#colorPicker + label::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: none;
+} */
+
+.custom-color-picker {
+    display: flex; /* Arrange elements horizontally */
+    align-items: center; /* Vertically align items */
+}
+
+.color-preview {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+    cursor: pointer; /* Indicate it's clickable */
+}
+
+.color-palette {
+    display: flex;
+}
+
+.color-swatch {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ccc;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
 .container {
     background-color: rgb(47, 0, 45);
     background-size:cover;
