@@ -1,4 +1,4 @@
-Initialize VK Bridge
+// Initialize VK Bridge
 vkBridge.send('VKWebAppInit');
 
 
