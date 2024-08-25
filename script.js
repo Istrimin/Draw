@@ -1,4 +1,3 @@
-// Initialize VK Bridge
 vkBridge.send('VKWebAppInit');
 
 const canvas = document.getElementById('drawingCanvas');
@@ -11,6 +10,12 @@ const eraserBtn = document.getElementById('eraser');
 const undoBtn = document.getElementById('undo');
 const redoBtn = document.getElementById('redo');
 const clearBtn = document.getElementById('clear');
+const inviteFriendsBtn = document.getElementById('inviteFriends');
+const addToFavoritesBtn = document.getElementById('addToFavorites'); // Assuming you have a button with this ID
+
+inviteFriendsBtn.addEventListener('click', inviteFriends);
+addToFavoritesBtn.addEventListener('click', addToFavorites); // Add event listener for adding to favorites
+
 
 let isDrawing = false;
 let lastX = 0;
@@ -19,7 +24,6 @@ let history = [];
 let redoHistory = [];
 let isEraser = false;
 
-// Initialize canvas with white background
 ctx.fillStyle = '#ffffff';
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -27,6 +31,41 @@ backgroundPicker.addEventListener('input', (event) => {
     canvas.style.backgroundColor = event.target.value;
     redrawCanvas();
 });
+
+
+function addToFavorites() {
+    vkBridge.send("VKWebAppAddToFavorites", {})
+        .then(data => {
+            if (data.result) {
+                console.log("Added to favorites successfully!");
+                // You can optionally display a success message to the user here
+            } else {
+                console.error("Adding to favorites failed.");
+            }
+        })
+        .catch(error => {
+            console.error("Error adding to favorites:", error);
+        });
+}
+
+
+function inviteFriends() {
+  vkBridge.send("VKWebAppInvite", {})
+    .then(data => {
+      if (data.success) {
+        console.log("Invitation sent successfully!");
+      } else {
+        console.error("Invitation failed:", data.error);
+      }
+    })
+    .catch(error => {
+      console.error("Error sending invitation:", error);
+    });
+}
+
+
+
+
 
 function redrawCanvas() {
     ctx.fillStyle = backgroundPicker.value;
@@ -68,6 +107,13 @@ function undo() {
         ctx.putImageData(history[history.length - 1], 0, 0);
     }
 }
+
+
+
+
+
+
+
 
 function redo() {
     if (redoHistory.length > 0) {
