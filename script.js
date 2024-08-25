@@ -24,10 +24,8 @@ let history = [];
 let redoHistory = [];
 let isEraser = false;
 
-
 ctx.imageSmoothingEnabled = false;
 ctx.fillStyle = '#' + Math.floor(Math.random() * 16777215).toString(16);
-
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 backgroundPicker.addEventListener('input', (event) => {
@@ -35,23 +33,15 @@ backgroundPicker.addEventListener('input', (event) => {
     redrawCanvas();
 });
 
-
 symmetryButton.addEventListener('click', () => {
-  symmetry = !symmetry;
-  symmetryButton.classList.toggle('active', symmetry);
+    symmetry = !symmetry;
+    symmetryButton.classList.toggle('active', symmetry);
 });
 
 canvas.addEventListener('mousedown', startDrawing);
 canvas.addEventListener('mousemove', draw);
 canvas.addEventListener('mouseup', stopDrawing);
-
-function startDrawing(e) {
-  isDrawing = true;
-  lastX = e.offsetX; // Initialize lastX and lastY here
-  lastY = e.offsetY;
-}
-
-
+canvas.addEventListener('mouseout', stopDrawing);
 
 function setDrawingCursor() {
     canvas.classList.add('drawingCursor');
@@ -63,16 +53,12 @@ function setEraserCursor() {
     canvas.classList.remove('drawingCursor');
 }
 
-
 eraserButton.addEventListener('click', setEraserCursor);
-
 setDrawingCursor(); 
-
 
 function addToFavorits() {
     vkBridge.send("VKWebAppAddToFavorites", {})
 }
-
 
 function inviteFriends() {
     vkBridge.send("VKWebAppInvite", {})
@@ -93,71 +79,69 @@ function redrawCanvas() {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     history.forEach(imageData => ctx.putImageData(imageData, 0, 0));
 }
-function startDrawing(e) {
-  isDrawing = true;
-  lastX = e.offsetX; 
-  lastY = e.offsetY;
 
-  // Draw a single dot on mouse down
-  drawPoint(lastX, lastY); 
+function startDrawing(e) {
+    isDrawing = true;
+    lastX = e.offsetX; 
+    lastY = e.offsetY;
+
+    // Save the canvas state when starting a new stroke
+    saveState(); 
 }
 
 function draw(e) {
-  if (!isDrawing) return;
+    if (!isDrawing) return;
 
-  ctx.lineWidth = brushSize.value;
-  ctx.lineCap = 'round';
-  ctx.strokeStyle = isEraser ? backgroundPicker.value : colorPicker.value;
-  ctx.globalAlpha = opacity.value / 100;
-
-  ctx.beginPath();
-  ctx.moveTo(lastX, lastY);
-  ctx.lineTo(e.offsetX, e.offsetY);
-  ctx.stroke();
-
-  if (symmetry) {
-    const centerX = canvas.width / 2;
-    const mirroredX = 2 * centerX - e.offsetX;
+    ctx.lineWidth = brushSize.value;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = isEraser ? backgroundPicker.value : colorPicker.value;
+    ctx.globalAlpha = opacity.value / 100;
 
     ctx.beginPath();
-    ctx.moveTo(2 * centerX - lastX, lastY);
-    ctx.lineTo(mirroredX, e.offsetY);
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(e.offsetX, e.offsetY);
     ctx.stroke();
-  }
 
-  lastX = e.offsetX;
-  lastY = e.offsetY;
+    if (symmetry) {
+        const centerX = canvas.width / 2;
+        const mirroredX = 2 * centerX - e.offsetX;
+
+        ctx.beginPath();
+        ctx.moveTo(2 * centerX - lastX, lastY);
+        ctx.lineTo(mirroredX, e.offsetY);
+        ctx.stroke();
+    }
+
+    lastX = e.offsetX;
+    lastY = e.offsetY;
 }
 
 // Function to draw a single point
 function drawPoint(x, y) {
-  ctx.beginPath();
-  ctx.arc(x, y, brushSize.value / 2, 0, Math.PI * 2); // Use brush size for dot radius
-  ctx.fillStyle = isEraser ? backgroundPicker.value : colorPicker.value;
-  ctx.globalAlpha = opacity.value / 100;
-  ctx.fill();
+    ctx.beginPath();
+    ctx.arc(x, y, brushSize.value / 2, 0, Math.PI * 2); // Use brush size for dot radius
+    ctx.fillStyle = isEraser ? backgroundPicker.value : colorPicker.value;
+    ctx.globalAlpha = opacity.value / 100;
+    ctx.fill();
 }
-
 
 function stopDrawing() {
-  isDrawing = false;
-  saveState();
+    isDrawing = false;
 }
 
-
-
-
 function undo() {
-    if (history.length > 1) {
+    if (history.length > 0) {
         redoHistory.push(history.pop());
-        ctx.putImageData(history[history.length - 1], 0, 0);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        redrawCanvas(); // Redraw the canvas with the remaining history
     }
 }
 
 function redo() {
     if (redoHistory.length > 0) {
         history.push(redoHistory.pop());
-        ctx.putImageData(history[history.length - 1], 0, 0);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        redrawCanvas(); // Redraw the canvas with the redo history
     }
 }
 
@@ -167,11 +151,6 @@ function clearCanvas() {
     history = [ctx.getImageData(0, 0, canvas.width, canvas.height)];
     redoHistory = [];
 }
-
-canvas.addEventListener('mousedown', startDrawing);
-canvas.addEventListener('mousemove', draw);
-canvas.addEventListener('mouseup', stopDrawing);
-canvas.addEventListener('mouseout', stopDrawing);
 
 eraserBtn.addEventListener('click', () => {
     isEraser = !isEraser;
@@ -184,9 +163,13 @@ eraserBtn.addEventListener('click', () => {
     }
 });
 
-
 undoBtn.addEventListener('click', undo);
 redoBtn.addEventListener("click", redo);
 clearBtn.addEventListener('click', clearCanvas);
 
 brushSize.value = 1;
+
+function saveState() {
+    history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    redoHistory = []; // Clear redo history when a new action is performed
+}
