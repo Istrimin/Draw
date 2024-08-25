@@ -71,7 +71,7 @@ function draw(e) {
     ctx.lineTo(e.offsetX, e.offsetY);
     ctx.strokeStyle = isEraser ? backgroundPicker.value : colorPicker.value;
     ctx.lineWidth = brushSize.value;
-    ctx.lineCap = brushSize.value >= 3 ? 'round' : 'butt'; // скругляем края
+    ctx.lineCap =  'round' // скругляем края
 
     ctx.globalAlpha = opacity.value / 100;
 
