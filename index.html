@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Music Club</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Music Club</h1>
+    </div>
+  </header>
+  <main>
+    <div class="click-counter">
+      <p>Количество кликов: <span id="click-count">0</span></p>
+      <button id="click-button">Click Me!</button>
+    </div>
+    <div class="music-player">
+      <button id="get-audio-button">Получить список аудиозаписей</button>
+      <ul id="audio-list"></ul>
+      <audio id="audio-player" controls></audio>
+    </div>
+    <div class="token-display">
+      <p>Токен доступа: <span id="token-display"></span></p>
+    </div>
+  </main>
+  <footer>
+    <div class="container">
+      <p>&copy; 2023 Music Club. Все права защищены.</p>
+    </div>
+  </footer>
+</body>
+</html>
