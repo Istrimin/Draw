@@ -1,11 +1,5 @@
 vkBridge.send('VKWebAppInit');
 
-// VK.init({
-//   apiId: 52202085,
-//   onlyWidgets: true
-// });
-
-
 const canvas = document.getElementById('drawingCanvas');
 const ctx = canvas.getContext('2d');
 const backgroundPicker = document.getElementById('backgroundPicker');
@@ -17,10 +11,7 @@ const undoBtn = document.getElementById('undo');
 const redoBtn = document.getElementById('redo');
 const clearBtn = document.getElementById('clear');
 const inviteFriendsBtn = document.getElementById('inviteFriends');
-const addToFavoritesBtn = document.getElementById('addToFavorites');
-
 inviteFriendsBtn.addEventListener('click', inviteFriends);
-addToFavoritesBtn.addEventListener('click', addToFavorites);
 
 
 let isDrawing = false;
@@ -39,30 +30,27 @@ backgroundPicker.addEventListener('input', (event) => {
 });
 
 
+function addToFavorits()
+    {
+        vkBridge.send("VKWebAppAddToFavorites",{})
+}
+
+
 function inviteFriends() {
-  VK.callMethod("VKWebAppShowInviteBox", function(data) {
-    if (data.success) {
-      console.log("Приглашения отправлены успешно!");
-    } else {
-      console.error("Ошибка при отправке приглашений:", data.error_data);
-    }
-  });
+  vkBridge.send("VKWebAppInvite", {})
+    .then(data => {
+      if (data.success) {
+        console.log("Invitation sent successfully!");
+      } else {
+        console.error("Invitation failed:", data.error);
+      }
+    })
+    .catch(error => {
+      console.error("Error sending invitation:", error);
+    });
 }
 
 
-function addToFavorites() {
-    vkBridge.send("VKWebAppAddToFavorites", {})
-        .then(data => {
-            if (data.result) {
-                console.log("Added to favorites successfully!");
-            } else {
-                console.error("Adding to favorites failed.");
-            }
-        })
-        .catch(error => {
-            console.error("Error adding to favorites:", error);
-        });
-}
 
 
 
