@@ -1,34 +1,6 @@
 // Initialize VK Bridge
 vkBridge.send('VKWebAppInit');
 
-
-
-// Проверяем, доступен ли VK Bridge
-const isVKBridgeAvailable = typeof vkBridge !== 'undefined';
-
-// Инициализируем VK Bridge, если он доступен
-if (isVKBridgeAvailable) {
-    vkBridge.send('VKWebAppInit')
-        .then(data => console.log('VK Bridge initialized:', data))
-        .catch(error => console.warn('VK Bridge initialization failed:', error));
-} else {
-    console.warn('VK Bridge is not available. Running in standalone mode.');
-}
-
-// Функция для использования VK-специфичного функционала
-function useVKFunctionality(fallbackFunction) {
-    if (isVKBridgeAvailable) {
-        // Здесь можно использовать vkBridge
-        console.log('Using VK Bridge functionality');
-        // Пример: vkBridge.send('VKWebAppShowWallPostBox', { message: 'Hello!' });
-    } else {
-        console.log('VK Bridge unavailable, using fallback');
-        if (fallbackFunction) fallbackFunction();
-    }
-}
-
-
-
 const canvas = document.getElementById('drawingCanvas');
 const ctx = canvas.getContext('2d');
 const backgroundPicker = document.getElementById('backgroundPicker');
