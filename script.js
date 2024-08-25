@@ -76,7 +76,7 @@ function draw(e) {
     ctx.lineTo(e.offsetX, e.offsetY);
     ctx.strokeStyle = isEraser ? backgroundPicker.value : colorPicker.value;
     ctx.lineWidth = brushSize.value;
-    ctx.lineCap = 'round';
+    // ctx.lineCap = 'round';
     ctx.globalAlpha = opacity.value / 100;
 
     // Включение/отключение сглаживания в зависимости от размера кисти
