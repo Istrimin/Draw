@@ -1,63 +1,40 @@
 body {
-  background-image: url('../images/logo.jpg');
-  background-color: black;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  min-height: 100vh; /* Добавлено для обеспечения минимальной высоты body */
+    background-image: url('../images/logo.jpg'); /* Make sure the path is correct */
+    background-color: black;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh; 
+    display: flex; /* Center content vertically and horizontally */
+    align-items: center;
+    justify-content: center;
 }
 
 .container {
-  width: 80%;
-  margin: 0 auto;
+    background-color: white; /* Add a background to the container */
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
 }
 
-header {
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 20px 0;
+canvas {
+    border: 1px solid black;
+    cursor: crosshair;
 }
 
-.logo img {
-  height: 50px;
+.tools {
+    margin-top: 20px;
 }
 
-nav ul {
-  list-style-type: none;
-  padding: 0;
+.tools label {
+    display: block;
+    margin-bottom: 5px;
 }
 
-nav ul li {
-  display: inline;
-  margin-right: 20px;
-}
-
-nav ul li a {
-  color: rgb(144, 0, 0);
-  text-decoration: none;
-}
-
-.click-counter {
-  text-align: center;
-  font-size: 48px;
-  margin-top: 100px;
-  color: rgb(255, 255, 255);
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-}
-
-#click-button {
-  font-size: 24px;
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: rgb(255, 255, 255);
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-#click-button:hover {
-  background-color: #45a049;
+.tools input, .tools button {
+    margin-bottom: 10px;
 }
