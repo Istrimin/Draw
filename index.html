@@ -5,33 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Draw</title>
     <link rel="stylesheet" href="css/style.css">
-  <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
-  <script src="script.js" defer></script>
+    <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
     <div class="container">
         <canvas id="drawingCanvas" width="400" height="400"></canvas>
-
         <div class="tools">
-        <div class="tools-row">
-            <label for="colorPicker">Color:</label>
-            <input type="color" id="colorPicker" value="#000000">
-
-            <label for="brushSize">Brush Size:</label>
-            <input type="range" id="brushSize" min="1" max="50" value="5">
-
-            <label for="opacity">Opacity:</label>
-            <input type="range" id="opacity" min="1" max="100" value="100">
-
-            <!-- Buttons Row -->
+            <div class="tools-row">
+                <label for="backgroundPicker">Background Color:</label>
+                <input type="color" id="backgroundPicker" value="#ffffff">
+                <label for="colorPicker">Color:</label>
+                <input type="color" id="colorPicker" value="#000000">
+                <label for="brushSize">Brush Size:</label>
+                <input type="range" id="brushSize" min="1" max="50" value="5">
+                <label for="opacity">Opacity:</label>
+                <input type="range" id="opacity" min="1" max="100" value="100">
+            </div>
             <div class="button-row">
                 <button id="eraser">Eraser</button>
                 <button id="undo">Undo</button>
                 <button id="redo">Redo</button>
                 <button id="clear">Clear</button>
             </div>
-
-
-    <!-- <script src="script.js"></script>  -->
+        </div>
+    </div>
 </body>
 </html>
