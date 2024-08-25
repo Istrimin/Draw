@@ -45,3 +45,9 @@ canvas {
 .tools input, .tools button {
     margin: 0 5px;
 }
+
+/* Изменение стиля кнопок */
+button { 
+    background-color: green; /* Зеленый фон */
+    color: white; /* Белый текст */
+}

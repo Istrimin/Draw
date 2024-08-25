@@ -1,9 +1,9 @@
 vkBridge.send('VKWebAppInit');
 
-VK.init({
-  apiId: 52202085,
-  onlyWidgets: true
-});
+// VK.init({
+//   apiId: 52202085,
+//   onlyWidgets: true
+// });
 
 
 const canvas = document.getElementById('drawingCanvas');
