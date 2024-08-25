@@ -16,6 +16,7 @@ body {
 
 .container {
     background-color: rgb(47, 0, 45);
+    background-size:cover;
     padding: 5px;
     border-radius: 5px;
     text-align: center;

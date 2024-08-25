@@ -21,8 +21,10 @@ let history = [];
 let redoHistory = [];
 let isEraser = false;
 
-// ctx.fillStyle = '#ffffff';
-ctx.fillStyle = '#' + Math.floor(Math.random()*16777215).toString(16);
+
+// Отключение сглаживания
+ctx.imageSmoothingEnabled = false;
+ctx.fillStyle = '#' + Math.floor(Math.random() * 16777215).toString(16);
 
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -32,24 +34,23 @@ backgroundPicker.addEventListener('input', (event) => {
 });
 
 
-function addToFavorits()
-    {
-        vkBridge.send("VKWebAppAddToFavorites",{})
+function addToFavorits() {
+    vkBridge.send("VKWebAppAddToFavorites", {})
 }
 
 
 function inviteFriends() {
-  vkBridge.send("VKWebAppInvite", {})
-    .then(data => {
-      if (data.success) {
-        console.log("Invitation sent successfully!");
-      } else {
-        console.error("Invitation failed:", data.error);
-      }
-    })
-    .catch(error => {
-      console.error("Error sending invitation:", error);
-    });
+    vkBridge.send("VKWebAppInvite", {})
+        .then(data => {
+            if (data.success) {
+                console.log("Invitation sent successfully!");
+            } else {
+                console.error("Invitation failed:", data.error);
+            }
+        })
+        .catch(error => {
+            console.error("Error sending invitation:", error);
+        });
 }
 
 
@@ -77,6 +78,10 @@ function draw(e) {
     ctx.lineWidth = brushSize.value;
     ctx.lineCap = 'round';
     ctx.globalAlpha = opacity.value / 100;
+
+    // Включение/отключение сглаживания в зависимости от размера кисти
+    ctx.imageSmoothingEnabled = brushSize.value >= 3;
+
     ctx.stroke();
     [lastX, lastY] = [e.offsetX, e.offsetY];
 }
@@ -96,13 +101,6 @@ function undo() {
         ctx.putImageData(history[history.length - 1], 0, 0);
     }
 }
-
-
-
-
-
-
-
 
 function redo() {
     if (redoHistory.length > 0) {
@@ -131,3 +129,6 @@ eraserBtn.addEventListener('click', () => {
 undoBtn.addEventListener('click', undo);
 redoBtn.addEventListener("click", redo);
 clearBtn.addEventListener('click', clearCanvas);
+
+// Установка размера кисти по умолчанию на 1
+brushSize.value = 1;
