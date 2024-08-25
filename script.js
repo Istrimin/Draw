@@ -93,12 +93,14 @@ function redrawCanvas() {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     history.forEach(imageData => ctx.putImageData(imageData, 0, 0));
 }
-
 function startDrawing(e) {
-    isDrawing = true;
-    [lastX, lastY] = [e.offsetX, e.offsetY];
-}
+  isDrawing = true;
+  lastX = e.offsetX; 
+  lastY = e.offsetY;
 
+  // Draw a single dot on mouse down
+  drawPoint(lastX, lastY); 
+}
 
 function draw(e) {
   if (!isDrawing) return;
@@ -114,7 +116,6 @@ function draw(e) {
   ctx.stroke();
 
   if (symmetry) {
-    // Рисуем симметрично относительно центра холста
     const centerX = canvas.width / 2;
     const mirroredX = 2 * centerX - e.offsetX;
 
@@ -127,6 +128,16 @@ function draw(e) {
   lastX = e.offsetX;
   lastY = e.offsetY;
 }
+
+// Function to draw a single point
+function drawPoint(x, y) {
+  ctx.beginPath();
+  ctx.arc(x, y, brushSize.value / 2, 0, Math.PI * 2); // Use brush size for dot radius
+  ctx.fillStyle = isEraser ? backgroundPicker.value : colorPicker.value;
+  ctx.globalAlpha = opacity.value / 100;
+  ctx.fill();
+}
+
 
 function stopDrawing() {
   isDrawing = false;
