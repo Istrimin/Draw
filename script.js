@@ -8,12 +8,16 @@ const brushSize = document.getElementById('brushSize');
 const opacity = document.getElementById('opacity');
 const eraserBtn = document.getElementById('eraser');
 const undoBtn = document.getElementById('undo');
+const redoBtn = document.getElementById('redo');
+const saveBtn = document.getElementById('save');
+
 const clearBtn = document.getElementById('clear');
 
 let isDrawing = false;
 let lastX = 0;
 let lastY = 0;
 let history = [];
+let redoHistory = []; // Store undone actions
 let isEraser = false;
 
 // Set canvas background to dark color
@@ -47,11 +51,20 @@ function stopDrawing() {
 
 function saveState() {
     history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    redoHistory = []; // Clear redo history when a new action is performed
 }
 
 function undo() {
     if (history.length > 0) {
-        ctx.putImageData(history.pop(), 0, 0);
+        redoHistory.push(history.pop()); // Move the undone action to redoHistory
+        ctx.putImageData(history[history.length - 1], 0, 0);
+    }
+}
+
+function redo() {
+    if (redoHistory.length > 0) {
+        history.push(redoHistory.pop()); // Get the last undone action
+        ctx.putImageData(history[history.length - 1], 0, 0);
     }
 }
 
@@ -59,6 +72,7 @@ function clearCanvas() {
     ctx.fillStyle = '#333';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     history = [];
+    redoHistory = [];
 }
 
 canvas.addEventListener('mousedown', startDrawing);
@@ -72,4 +86,5 @@ eraserBtn.addEventListener('click', () => {
 });
 
 undoBtn.addEventListener('click', undo);
+redoBtn.addEventListener("click", redo);
 clearBtn.addEventListener('click', clearCanvas);
