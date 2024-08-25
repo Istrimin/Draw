@@ -1,4 +1,4 @@
-// vkBridge.send('VKWebAppInit');
+vkBridge.send('VKWebAppInit');
 
 VK.init({
   apiId: 52202085,
