@@ -1,5 +1,5 @@
 body {
-    background-image: url('../images/logo.jpg'); /* Make sure the path is correct */
+    background-image: url('../images/logo.jpg'); 
     background-color: black;
     background-size: cover;
     background-position: center;
@@ -15,8 +15,8 @@ body {
 }
 
 .container {
-    background-color: white; /* Add a background to the container */
-    padding: 20px;
+    background-color: rgb(137, 0, 130); /* Add a background to the container */
+    padding: 5px;
     border-radius: 5px;
     text-align: center;
 }
@@ -26,14 +26,14 @@ canvas {
     cursor: crosshair;
 }
 
-.tools {
+/* .tools {
     margin-top: 20px;
-}
+} */
 
-.tools label {
+/* .tools label {
     display: block;
     margin-bottom: 5px;
-}
+} */
 
 .tools input, .tools button {
     margin-bottom: 10px;
