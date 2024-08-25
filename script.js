@@ -1,4 +1,10 @@
-vkBridge.send('VKWebAppInit');
+// vkBridge.send('VKWebAppInit');
+
+VK.init({
+  apiId: 52202085,
+  onlyWidgets: true
+});
+
 
 const canvas = document.getElementById('drawingCanvas');
 const ctx = canvas.getContext('2d');
@@ -11,10 +17,10 @@ const undoBtn = document.getElementById('undo');
 const redoBtn = document.getElementById('redo');
 const clearBtn = document.getElementById('clear');
 const inviteFriendsBtn = document.getElementById('inviteFriends');
-const addToFavoritesBtn = document.getElementById('addToFavorites'); // Assuming you have a button with this ID
+const addToFavoritesBtn = document.getElementById('addToFavorites');
 
 inviteFriendsBtn.addEventListener('click', inviteFriends);
-addToFavoritesBtn.addEventListener('click', addToFavorites); // Add event listener for adding to favorites
+addToFavoritesBtn.addEventListener('click', addToFavorites);
 
 
 let isDrawing = false;
@@ -33,12 +39,22 @@ backgroundPicker.addEventListener('input', (event) => {
 });
 
 
+function inviteFriends() {
+  VK.callMethod("VKWebAppShowInviteBox", function(data) {
+    if (data.success) {
+      console.log("Приглашения отправлены успешно!");
+    } else {
+      console.error("Ошибка при отправке приглашений:", data.error_data);
+    }
+  });
+}
+
+
 function addToFavorites() {
     vkBridge.send("VKWebAppAddToFavorites", {})
         .then(data => {
             if (data.result) {
                 console.log("Added to favorites successfully!");
-                // You can optionally display a success message to the user here
             } else {
                 console.error("Adding to favorites failed.");
             }
@@ -47,23 +63,6 @@ function addToFavorites() {
             console.error("Error adding to favorites:", error);
         });
 }
-
-
-function inviteFriends() {
-  vkBridge.send("VKWebAppInvite", {})
-    .then(data => {
-      if (data.success) {
-        console.log("Invitation sent successfully!");
-      } else {
-        console.error("Invitation failed:", data.error);
-      }
-    })
-    .catch(error => {
-      console.error("Error sending invitation:", error);
-    });
-}
-
-
 
 
 
