@@ -13,6 +13,8 @@ const clearBtn = document.getElementById('clear');
 const inviteFriendsBtn = document.getElementById('inviteFriends');
 inviteFriendsBtn.addEventListener('click', inviteFriends);
 
+const eraserButton = document.getElementById('eraser');
+
 
 let isDrawing = false;
 let lastX = 0;
@@ -22,7 +24,6 @@ let redoHistory = [];
 let isEraser = false;
 
 
-// Отключение сглаживания
 ctx.imageSmoothingEnabled = false;
 ctx.fillStyle = '#' + Math.floor(Math.random() * 16777215).toString(16);
 
@@ -32,6 +33,22 @@ backgroundPicker.addEventListener('input', (event) => {
     canvas.style.backgroundColor = event.target.value;
     redrawCanvas();
 });
+
+
+function setDrawingCursor() {
+    canvas.classList.add('drawingCursor');
+    canvas.classList.remove('eraserCursor');
+}
+
+function setEraserCursor() {
+    canvas.classList.add('eraserCursor');
+    canvas.classList.remove('drawingCursor');
+}
+
+
+eraserButton.addEventListener('click', setEraserCursor);
+
+setDrawingCursor(); 
 
 
 function addToFavorits() {
@@ -64,14 +81,18 @@ function startDrawing(e) {
     [lastX, lastY] = [e.offsetX, e.offsetY];
 }
 
+
 function draw(e) {
     if (!isDrawing) return;
     ctx.beginPath();
     ctx.moveTo(lastX, lastY);
     ctx.lineTo(e.offsetX, e.offsetY);
-    ctx.strokeStyle = isEraser ? backgroundPicker.value : colorPicker.value;
+
+    // Use background color for eraser
+    ctx.strokeStyle = isEraser ? backgroundPicker.value : colorPicker.value; 
+
     ctx.lineWidth = brushSize.value;
-    ctx.lineCap =  'round' // скругляем края
+    ctx.lineCap =  'round'
 
     ctx.globalAlpha = opacity.value / 100;
 
@@ -81,6 +102,8 @@ function draw(e) {
     [lastX, lastY] = [e.offsetX, e.offsetY];
 
 }
+
+
 function saveState() {
     history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
     redoHistory = [];
@@ -122,11 +145,17 @@ canvas.addEventListener('mouseout', stopDrawing);
 eraserBtn.addEventListener('click', () => {
     isEraser = !isEraser;
     eraserBtn.textContent = isEraser ? 'Brush' : 'Eraser';
+
+    if (isEraser) {
+        setEraserCursor();
+    } else {
+        setDrawingCursor();
+    }
 });
+
 
 undoBtn.addEventListener('click', undo);
 redoBtn.addEventListener("click", redo);
 clearBtn.addEventListener('click', clearCanvas);
 
-// Установка размера кисти по умолчанию на 1
 brushSize.value = 1;
