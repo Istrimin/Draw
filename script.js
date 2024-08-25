@@ -21,7 +21,9 @@ let history = [];
 let redoHistory = [];
 let isEraser = false;
 
-ctx.fillStyle = '#ffffff';
+// ctx.fillStyle = '#ffffff';
+ctx.fillStyle = '#' + Math.floor(Math.random()*16777215).toString(16);
+
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 backgroundPicker.addEventListener('input', (event) => {
