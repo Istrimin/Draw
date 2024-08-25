@@ -16,8 +16,8 @@ body {
 
 .container {
     background-color: rgb(47, 0, 45);
-    padding: 20px;
-    border-radius: 1px;
+    padding: 5px;
+    border-radius: 5px;
     text-align: center;
 }
 
@@ -46,8 +46,7 @@ canvas {
     margin: 0 5px;
 }
 
-/* Изменение стиля кнопок */
 button { 
-    background-color: green; /* Зеленый фон */
-    color: white; /* Белый текст */
+    background-color: green;
+    color: white;
 }
