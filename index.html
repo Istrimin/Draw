@@ -13,6 +13,7 @@
         <canvas id="drawingCanvas" width="400" height="400"></canvas>
 
         <div class="tools">
+        <div class="tools-row">
             <label for="colorPicker">Color:</label>
             <input type="color" id="colorPicker" value="#000000">
 
@@ -22,13 +23,15 @@
             <label for="opacity">Opacity:</label>
             <input type="range" id="opacity" min="1" max="100" value="100">
 
-            <button id="eraser">Eraser</button>
-            <button id="undo">Undo</button>
-            <button id="redo">Redo</button>
-            <button id="clear">Clear</button>
-        </div>
-    </div>
+            <!-- Buttons Row -->
+            <div class="button-row">
+                <button id="eraser">Eraser</button>
+                <button id="undo">Undo</button>
+                <button id="redo">Redo</button>
+                <button id="clear">Clear</button>
+            </div>
 
-    <script src="script.js"></script> 
+
+    <!-- <script src="script.js"></script>  -->
 </body>
 </html>

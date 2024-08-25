@@ -9,32 +9,39 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100vh; 
-    display: flex; /* Center content vertically and horizontally */
+    display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .container {
-    background-color: rgb(137, 0, 130); /* Add a background to the container */
-    padding: 5px;
-    border-radius: 5px;
+    background-color: rgb(47, 0, 45);
+    padding: 20px;
+    border-radius: 1px;
     text-align: center;
 }
 
 canvas {
     border: 1px solid black;
     cursor: crosshair;
+    margin-bottom: 20px;
 }
 
-/* .tools {
-    margin-top: 20px;
-} */
+.tools {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-/* .tools label {
-    display: block;
-    margin-bottom: 5px;
-} */
+.color-picker {
+    margin-bottom: 10px;
+}
+
+.button-row {
+    display: flex;
+    justify-content: center;
+}
 
 .tools input, .tools button {
-    margin-bottom: 10px;
+    margin: 0 5px;
 }
