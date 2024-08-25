@@ -1,4 +1,4 @@
-vkBridge.send('VKWebAppInit');
+// vkBridge.send('VKWebAppInit');
 
 const canvas = document.getElementById('drawingCanvas');
 const ctx = canvas.getContext('2d');
@@ -11,10 +11,47 @@ const undoBtn = document.getElementById('undo');
 const redoBtn = document.getElementById('redo');
 const clearBtn = document.getElementById('clear');
 const inviteFriendsBtn = document.getElementById('inviteFriends');
+const imageInput = document.getElementById('imageInput'); // Add an input element in your HTML
+let uploadedImage = null;
+
 inviteFriendsBtn.addEventListener('click', inviteFriends);
 
 const eraserButton = document.getElementById('eraser');
 const symmetryButton = document.getElementById('symmetry');
+
+
+const customUploadButton = document.getElementById('customUploadButton');
+customUploadButton.addEventListener('click', () => {
+    imageInput.click(); 
+});
+
+
+
+// Function to download the canvas content as an image
+function downloadImage() {
+  const link = document.createElement('a');
+  link.download = 'my-drawing.png'; 
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+}
+
+// Add event listener to the save button (make sure to get the element by ID)
+document.getElementById('saveImageButton').addEventListener('click', downloadImage);
+
+
+// Function to download the canvas content as an image
+function downloadImage() {
+  const link = document.createElement('a');
+  link.download = 'my-drawing.png'; 
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+}
+
+// Add event listener to the save button
+saveImageButton.addEventListener('click', downloadImage);
+
+
+
 
 let symmetry = false;
 let isDrawing = false;
@@ -27,6 +64,22 @@ let isEraser = false;
 ctx.imageSmoothingEnabled = false;
 ctx.fillStyle = '#' + Math.floor(Math.random() * 16777215).toString(16);
 ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+// Image upload handling
+imageInput.addEventListener('change', (event) => {
+  const file = event.target.files[0];
+  const reader = new FileReader();
+
+  reader.onload = (e) => {
+    uploadedImage = new Image();
+    uploadedImage.onload = () => {
+      // Draw the image on the canvas
+      ctx.drawImage(uploadedImage, 0, 0, canvas.width, canvas.height);
+    };
+    uploadedImage.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+});
 
 backgroundPicker.addEventListener('input', (event) => {
     canvas.style.backgroundColor = event.target.value;
@@ -77,6 +130,12 @@ function inviteFriends() {
 function redrawCanvas() {
     ctx.fillStyle = backgroundPicker.value;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Draw the uploaded image first, if it exists
+    if (uploadedImage) {
+      ctx.drawImage(uploadedImage, 0, 0, canvas.width, canvas.height);
+    }
+
     history.forEach(imageData => ctx.putImageData(imageData, 0, 0));
 }
 

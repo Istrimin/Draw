@@ -12,7 +12,6 @@
     <div class="container">
         <canvas id="drawingCanvas" width="800" height="500"></canvas>
 
-
         <div class="tools">
             <div class="tools-row">
                 <input type="color" id="backgroundPicker" value="#ffffff">
@@ -21,15 +20,25 @@
                 <input type="range" id="brushSize" min="1" max="50" value="5">
                 <label for="opacity">Opacity:</label>
                 <input type="range" id="opacity" min="1" max="100" value="100">
-            </div>
-            <div class="button-row">
+
+                <div class="button-row"> 
+                <button id="customUploadButton">Image</button>
+                <input type="file" id="imageInput" accept="image/*" style="display: none;"> 
+                
+
+                <button id="saveImageButton">Save</button>
+                <button id-"fill">fill</button>
+                <!-- <button id="saveImageButton">Save Image</button>  -->
+
                 <button id="eraser">Eraser</button>
                 <button id="undo">Undo</button>
                 <button id="redo">Redo</button>
                 <button id="clear">Clear</button>
                 <button id="symmetry">Симметрия</button> 
                 <button id="inviteFriends">Пригласить друзей</button> 
-                <button id ="addToFavorites">Добавить в избранные</button>
+                <button id="addToFavorites">Добавить в избранные</button> 
+                <button id ="addPicture">Изображение</button>
+            </div>
             </div>
         </div>
     </div>
