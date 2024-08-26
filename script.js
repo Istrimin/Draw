@@ -62,6 +62,21 @@ canvas.addEventListener('mouseup', stopDrawing);
 canvas.addEventListener('mouseout', stopDrawing);
 canvas.addEventListener('click', floodFill); // Add flood fill on click
 
+
+document.addEventListener('keydown', (event) => {
+  // Используем event.code вместо event.key
+  if (event.code === 'KeyZ') { 
+    undo();
+  } else if (event.code === 'KeyX') { 
+    redo();
+  }
+});
+
+
+
+
+
+
 // Control Buttons
 saveImageButton.addEventListener('click', downloadImage);
 undoBtn.addEventListener('click', undo);
@@ -165,7 +180,7 @@ function clearCanvas() {
     ctx.fillStyle = backgroundPicker.value;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     history = [ctx.getImageData(0, 0, canvas.width, canvas.height)];
-    redoHistory = [];
+    // redoHistory = [];
 }
 
 // Tool Functions

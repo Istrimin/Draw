@@ -44,15 +44,15 @@ input[type="range"] {
 }
 
 input[type="range"]:hover {
-    opacity: 1;
+    opacity: 50;
 }
 
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    appearance: none;
+    /* appearance: none; */
     width: 10px;
     height: 10px;
-    background: #04AA6D;
+    background: #a204aa;
     cursor: pointer;
     border-radius: 50%;
 } */
