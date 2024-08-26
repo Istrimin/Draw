@@ -191,7 +191,7 @@ function toggleSymmetry() {
 
 function toggleEraser() {
     isEraser = !isEraser;
-    eraserBtn.textContent = isEraser ? 'Brush' : 'Eraser';
+    eraserBtn.textContent = isEraser ? '🖌️' : '💩';
 
     if (isEraser) {
         setEraserCursor();

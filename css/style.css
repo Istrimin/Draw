@@ -145,7 +145,7 @@ button {
     background-color: var(--button-color);
     color: var(--button-text-color);
     font-style: bold;
-    font-size: 18px;
+    font-size: 30px;
 }
 
 
@@ -157,7 +157,7 @@ input[type="range"]:hover {
     cursor: pointer;
     color: rgb(0, 255, 13);
 }
-
+/* подсведка фона */
 button:hover {
-    background-color: rgb(34, 34, 34);
+    background-color: rgb(61, 61, 61);
 }

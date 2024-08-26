@@ -15,36 +15,42 @@
         <div class="tools">
             <div class="tools-row">
                 <!-- Color Pickers -->
-                <input type="color" id="backgroundPicker" value="#ffffff">
-                <input type="color" id="colorPicker" value="#000000">
+                <input type="color" id="backgroundPicker" value="#ffffff" title="Цвет фона">
+                <input type="color" id="colorPicker" value="#000000" title="Цвет кисти">
+            </div>
 
+            <div class="tools-row"> 
                 <!-- Brush Settings -->
-                <label for="brushSize">Size:</label>
-                <input type="range" id="brushSize" min="1" max="50" value="5">
-                <label for="opacity">Opacity:</label>
+                <label for="brushSize" title="Размер кисти">◯ </label>
+                <input type="range" id="brushSize" min="1" max="100" value="1">
+            </div>
+
+            <div class="tools-row">
+                <label for="opacity" title="Прозрачность">👻 </label>
                 <input type="range" id="opacity" min="1" max="100" value="100">
             </div>
 
             <div class="button-row"> 
                 <!-- Image Upload -->
                 <label for="imageInput">
-                    <button id="customUploadButton">🌺 </button>
+                    <button id="customUploadButton" title="Загрузить изображение">🌺 </button>
                 </label>
                 <input type="file" id="imageInput" accept="image/*" style="display: none;"> 
 
                 <!-- Action Buttons -->
-                <button id="saveImageBtn">🎬 </button>
-                <button id="eraser">💩 </button>
-                <button id="undo">⟲  </button>
-                <button id="redo">⟳ </button>
-                <button id="clear">💀</button>                <button id="symmetry">🦋</button> 
+                <button id="saveImageBtn" title="Сохранить изображение">🎬 </button>
+                <button id="eraser" title="Ластик">💩</button>
+                <button id="undo" title="Отменить">⟲  </button>
+                <button id="redo" title="Повторить">⟳ </button>
+                <button id="clear" title="Очистить">💀</button>                
+                <button id="symmetry" title="Симметрия">🦋</button> 
 
 
                 <!-- VK Specific Buttons -->
 
-                <button id="inviteFriends"> 👥</button> 
-                <button id="addToFavorites">📌 </button>                 
-                <button id="settings">⚙️</button>
+                <button id="inviteFriends" title="Пригласить друзей"> 👥</button> 
+                <button id="addToFavorites" title="Добавить в избранное">📌 </button>                 
+                <button id="settings" title="Настройки">⚙️</button>
             </div>
         </div>
     </div>
@@ -104,4 +110,3 @@
     </script>
 </body>
 </html>
-
