@@ -21,8 +21,8 @@ const customUploadButton = document.getElementById('customUploadButton');
 const eraserButton = document.getElementById('eraser'); // Note: This seems to be a duplicate of eraserBtn
 const symmetryButton = document.getElementById('symmetry');
 
-const floodFillButton = document.getElementById('floodFillButton');
-let isFloodFillActive = false;
+// const floodFillButton = document.getElementById('floodFillButton');
+// let isFloodFillActive = false;
 
 
 
