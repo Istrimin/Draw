@@ -34,9 +34,9 @@ body {
 
 
 /* In your existing CSS file or within a <style> tag */
-#floodFillButton.active {
-  background-color: lightblue; /* Or any color you prefer */
-}
+/* #floodFillButton.active {
+  background-color: lightblue; 
+} */
 
 
 
