@@ -1,4 +1,4 @@
-vkBridge.send('VKWebAppInit');
+// vkBridge.send('VKWebAppInit');
 
 // ---------- Canvas and Context ----------
 const canvas = document.getElementById('drawingCanvas');
@@ -20,9 +20,14 @@ const imageInput = document.getElementById('imageInput');
 const customUploadButton = document.getElementById('customUploadButton');
 const eraserButton = document.getElementById('eraser'); // Note: This seems to be a duplicate of eraserBtn
 const symmetryButton = document.getElementById('symmetry');
+
 const floodFillButton = document.getElementById('floodFillButton');
 
+
+
 let isFloodFillActive = false;
+
+
 
 // ---------- Drawing State ----------
 let symmetry = false;
@@ -35,6 +40,57 @@ let isEraser = false;
 let uploadedImage = null;
 
 // ---------- Initialization ----------
+
+
+
+
+
+// Flood Fill Activation
+floodFillButton.addEventListener('click', () => {
+  isFloodFillActive = !isFloodFillActive; // Toggle the state on each click
+  floodFillButton.classList.toggle('active', isFloodFillActive); // Toggle the class
+});
+
+
+floodFillButton.addEventListener('mouseup', () => {
+  isFloodFillActive = false;
+  floodFillButton.classList.remove('active'); // Remove the 'active' class
+});
+
+floodFillButton.addEventListener('mousedown', () => {
+  isFloodFillActive = true;
+});
+
+floodFillButton.addEventListener('mouseup', () => {
+  isFloodFillActive = false;
+});
+
+// Canvas Interaction for Flood Fill
+canvas.addEventListener('click', (e) => {
+  if (isFloodFillActive) {
+    floodFill(e);
+  }
+});
+
+
+// Flood Fill Activation
+floodFillButton.addEventListener('click', () => {
+  isFloodFillActive = !isFloodFillActive; // Toggle the state on each click
+  floodFillButton.classList.toggle('active', isFloodFillActive); // Toggle the class
+});
+
+// Canvas Interaction for Flood Fill
+canvas.addEventListener('click', (e) => {
+  if (isFloodFillActive) { 
+    floodFill(e);
+  }
+});
+
+
+
+
+
+
 ctx.fillStyle = '#' + Math.floor(Math.random() * 16777215).toString(16);
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 brushSize.value = 1; 
@@ -50,28 +106,31 @@ imageInput.addEventListener('change', handleImageUpload);
 
 // Drawing Tools
 symmetryButton.addEventListener('click', toggleSymmetry);
-eraserBtn.addEventListener('click', toggleEraser); 
-eraserButton.addEventListener('click', setEraserCursor); 
-setDrawingCursor(); 
+eraserBtn.addEventListener('click', toggleEraser); // Using eraserBtn consistently
+eraserButton.addEventListener('click', setEraserCursor); // If this is needed, consider renaming for clarity
+setDrawingCursor(); // Set initial cursor
 
 // Canvas Interactions
 canvas.addEventListener('mousedown', startDrawing);
 canvas.addEventListener('mousemove', draw);
 canvas.addEventListener('mouseup', stopDrawing);
 canvas.addEventListener('mouseout', stopDrawing);
-canvas.addEventListener('click', (e) => {
-  if (isFloodFillActive) {
-    floodFill(e);
-  }
-});
+canvas.addEventListener('click', floodFill); // Add flood fill on click
+
 
 document.addEventListener('keydown', (event) => {
+  // Используем event.code вместо event.key
   if (event.code === 'KeyZ') { 
     undo();
   } else if (event.code === 'KeyX') { 
     redo();
   }
 });
+
+
+
+
+
 
 // Control Buttons
 saveImageButton.addEventListener('click', downloadImage);
@@ -83,12 +142,6 @@ clearBtn.addEventListener('click', clearCanvas);
 backgroundPicker.addEventListener('input', (event) => {
     canvas.style.backgroundColor = event.target.value;
     redrawCanvas();
-});
-
-// Flood Fill Activation
-floodFillButton.addEventListener('click', () => {
-  isFloodFillActive = !isFloodFillActive; 
-  floodFillButton.classList.toggle('active', isFloodFillActive); 
 });
 
 // ---------- Functions ----------
@@ -182,6 +235,7 @@ function clearCanvas() {
     ctx.fillStyle = backgroundPicker.value;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     history = [ctx.getImageData(0, 0, canvas.width, canvas.height)];
+    // redoHistory = [];
 }
 
 // Tool Functions
@@ -243,8 +297,8 @@ function downloadImage() {
 
 // add resize canvas
 function resizeCanvas() {
-    canvas.width = canvas.parentElement.offsetWidth; 
-    canvas.height = canvas.parentElement.offsetHeight; 
+    canvas.width = canvas.parentElement.offsetWidth; // Or desired width
+    canvas.height = canvas.parentElement.offsetHeight; // Or desired height
 }
 
 // Call resizeCanvas initially and on window resize
@@ -257,9 +311,9 @@ function floodFill(e) {
   const fillColor = hexToRgba(colorPicker.value);
 
   // Tolerance Level (adjust as needed)
-  const tolerance = 10; 
+  const tolerance = 10; // Allow a difference of 10 in RGB values
 
-  if (!colorMatch(targetColor, fillColor, tolerance)) { 
+  if (!colorMatch(targetColor, fillColor, tolerance)) { // Pass tolerance to colorMatch
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     const data = imageData.data;
     const width = imageData.width;
@@ -270,7 +324,7 @@ function floodFill(e) {
       const index = (y * width + x) * 4;
 
       if (index < 0 || index > data.length - 4 || 
-          !colorMatch(data.slice(index, index + 4), targetColor, tolerance)) { 
+          !colorMatch(data.slice(index, index + 4), targetColor, tolerance)) { // Check with tolerance
         continue;
       }
 
@@ -292,7 +346,7 @@ function hexToRgba(hex) {
   const r = parseInt(hex.slice(1, 3), 16);
   const g = parseInt(hex.slice(3, 5), 16);
   const b = parseInt(hex.slice(5, 7), 16);
-  return [r, g, b, 255]; 
+  return [r, g, b, 255]; // Assuming full opacity
 }
 
 function colorMatch(a, b, tolerance) {
