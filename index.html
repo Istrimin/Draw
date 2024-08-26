@@ -28,21 +28,23 @@
             <div class="button-row"> 
                 <!-- Image Upload -->
                 <label for="imageInput">
-                    <button id="customUploadButton">Image</button>
+                    <button id="customUploadButton">🌺 </button>
                 </label>
                 <input type="file" id="imageInput" accept="image/*" style="display: none;"> 
 
                 <!-- Action Buttons -->
-                <button id="saveImageBtn">Save</button>
-                <button id="eraser">Eraser</button>
-                <button id="undo">Undo</button>
-                <button id="redo">Redo</button>
-                <button id="clear">Clear</button>
+                <button id="saveImageBtn">🎬 </button>
+                <button id="eraser">💩 </button>
+                <button id="undo">⟲  </button>
+                <button id="redo">⟳ </button>
+                <button id="clear">💀</button>                <button id="symmetry">🦋</button> 
+
 
                 <!-- VK Specific Buttons -->
-                <button id="symmetry">Симметрия</button> 
-                <button id="inviteFriends">Пригласить</button> 
-                <button id="addToFavorites">В избранные</button> 
+
+                <button id="inviteFriends"> 👥</button> 
+                <button id="addToFavorites">📌 </button>                 
+                <button id="settings">⚙️</button>
             </div>
         </div>
     </div>
@@ -69,6 +71,36 @@
 
             // Здесь можно сохранить информацию о реферале в базе данных
         });
+
+
+        document.getElementById('addToFavorites').addEventListener('click', async () => {
+        try {
+            // 1. Get Current User ID:
+            const user = await vkBridge.send('VKWebAppGetUserInfo');
+            const userId = user.id;
+
+            // 2. Get Drawing ID (You'll need a way to uniquely identify drawings):
+            const drawingId = getDrawingId(); // Replace with your logic
+
+            // 3. Send Request to Your Backend:
+            const response = await fetch('/api/favorites', { 
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userId, drawingId })
+            });
+
+            if (response.ok) {
+            // 4a. Success: Update UI (e.g., change button to "Added")
+            console.log('Добавлено в избранное!'); 
+            } else {
+            // 4b. Handle Errors (e.g., already favorited, network issue)
+            console.error('Ошибка добавления в избранное');
+            }
+        } catch (error) {
+            console.error('Ошибка:', error);
+        }
+        });
+
     </script>
 </body>
 </html>

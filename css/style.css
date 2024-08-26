@@ -144,7 +144,7 @@ canvas {
 button {
     background-color: var(--button-color);
     color: var(--button-text-color);
-    font-style: italic;
+    font-style: bold;
     font-size: 18px;
     /* Add this line with your desired font size */
 }
