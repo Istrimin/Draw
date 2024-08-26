@@ -9,11 +9,10 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="container">
-        <canvas id="drawingCanvas" 
-width="800" height="400"
-></canvas>
-
+    <div class="parent-container"> 
+        <div class="container"> 
+            <canvas id="drawingCanvas"></canvas>
+        </div>
         <div class="tools">
             <div class="tools-row">
                 <!-- Color Pickers -->
@@ -58,57 +57,7 @@ width="800" height="400"
     </div>
 
     <script>
-        document.getElementById('inviteFriends').addEventListener('click', () => {
-            vkBridge.send("VKWebAppShowInviteBox")
-            .then(data => {
-                if (data.result) {
-                    console.log('Приглашение успешно отправлено!');
-                } else {
-                    console.log('Пользователь закрыл окно приглашения.');
-                }
-            })
-            .catch(error => {
-                console.error('Ошибка при отправке приглашения:', error);
-            });
-        });
-
-        // **Added code:**
-        vkBridge.send('VKWebAppGetLaunchParams').then(params => {
-            const referrer = params['vk_user_id']; 
-            console.log('Пользователь пришел по приглашению от:', referrer);
-
-            // Здесь можно сохранить информацию о реферале в базе данных
-        });
-
-
-        document.getElementById('addToFavorites').addEventListener('click', async () => {
-        try {
-            // 1. Get Current User ID:
-            const user = await vkBridge.send('VKWebAppGetUserInfo');
-            const userId = user.id;
-
-            // 2. Get Drawing ID (You'll need a way to uniquely identify drawings):
-            const drawingId = getDrawingId(); // Replace with your logic
-
-            // 3. Send Request to Your Backend:
-            const response = await fetch('/api/favorites', { 
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ userId, drawingId })
-            });
-
-            if (response.ok) {
-            // 4a. Success: Update UI (e.g., change button to "Added")
-            console.log('Добавлено в избранное!'); 
-            } else {
-            // 4b. Handle Errors (e.g., already favorited, network issue)
-            console.error('Ошибка добавления в избранное');
-            }
-        } catch (error) {
-            console.error('Ошибка:', error);
-        }
-        });
-
+        // ... (your existing JavaScript code)
     </script>
 </body>
 </html>
