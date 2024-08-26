@@ -31,6 +31,20 @@ body {
     --button-text-color: rgb(211, 116, 255);
 }
 
+
+
+/* In your existing CSS file or within a <style> tag */
+#floodFillButton.active {
+  background-color: lightblue; /* Or any color you prefer */
+}
+
+
+
+
+
+
+
+
 input[type="range"] {
     width: 50%;
     -webkit-appearance: none;
