@@ -15,10 +15,9 @@ const undoBtn = document.getElementById('undo');
 const redoBtn = document.getElementById('redo');
 const clearBtn = document.getElementById('clear');
 const inviteFriendsBtn = document.getElementById('inviteFriends');
-const saveImageButton = document.getElementById('saveImageButton');
+const saveImageBtn = document.getElementById('saveImageBtn');
 const imageInput = document.getElementById('imageInput');
 const customUploadButton = document.getElementById('customUploadButton');
-const eraserButton = document.getElementById('eraser'); // Note: This seems to be a duplicate of eraserBtn
 const symmetryButton = document.getElementById('symmetry');
 
 // const floodFillButton = document.getElementById('floodFillButton');
@@ -53,7 +52,7 @@ imageInput.addEventListener('change', handleImageUpload);
 // Drawing Tools
 symmetryButton.addEventListener('click', toggleSymmetry);
 eraserBtn.addEventListener('click', toggleEraser); // Using eraserBtn consistently
-eraserButton.addEventListener('click', setEraserCursor); // If this is needed, consider renaming for clarity
+eraserBtn.addEventListener('click', setEraserCursor); // If this is needed, consider renaming for clarity
 setDrawingCursor(); // Set initial cursor
 
 // Canvas Interactions
@@ -79,7 +78,7 @@ document.addEventListener('keydown', (event) => {
 
 
 // Control Buttons
-saveImageButton.addEventListener('click', downloadImage);
+saveImageBtn.addEventListener('click', downloadImage);
 undoBtn.addEventListener('click', undo);
 redoBtn.addEventListener('click', redo);
 clearBtn.addEventListener('click', clearCanvas);
@@ -257,7 +256,7 @@ function floodFill(e) {
   const fillColor = hexToRgba(colorPicker.value);
 
   // Tolerance Level (adjust as needed)
-  const tolerance = 10; // Allow a difference of 10 in RGB values
+  const tolerance = 90; // Allow a difference of 10 in RGB values
 
   if (!colorMatch(targetColor, fillColor, tolerance)) { // Pass tolerance to colorMatch
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);

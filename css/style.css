@@ -11,14 +11,13 @@ body {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
 }
 
 
 .drawingCursor {
     cursor: url('../cursors/pencil.png'), auto;
 }
-
 .eraserCursor {
     cursor: url('../cursors/eraser.png'), auto;
 }
