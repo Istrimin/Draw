@@ -60,6 +60,7 @@ canvas.addEventListener('mousedown', startDrawing);
 canvas.addEventListener('mousemove', draw);
 canvas.addEventListener('mouseup', stopDrawing);
 canvas.addEventListener('mouseout', stopDrawing);
+canvas.addEventListener('click', floodFill); // Add flood fill on click
 
 // Control Buttons
 saveImageButton.addEventListener('click', downloadImage);
@@ -233,3 +234,47 @@ function resizeCanvas() {
 // Call resizeCanvas initially and on window resize
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
+
+// Flood Fill Functionality
+function floodFill(e) {
+  const targetColor = ctx.getImageData(e.offsetX, e.offsetY, 1, 1).data;
+  const fillColor = hexToRgba(colorPicker.value);
+
+  if (!colorMatch(targetColor, fillColor)) {
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const data = imageData.data;
+    const width = imageData.width;
+    const stack = [[e.offsetX, e.offsetY]];
+
+    while (stack.length) {
+      const [x, y] = stack.pop();
+      const index = (y * width + x) * 4;
+
+      if (index < 0 || index > data.length - 4 || !colorMatch(data.slice(index, index + 4), targetColor)) {
+        continue;
+      }
+
+      data[index] = fillColor[0];
+      data[index + 1] = fillColor[1];
+      data[index + 2] = fillColor[2];
+      data[index + 3] = fillColor[3];
+
+      stack.push([x + 1, y], [x - 1, y], [x, y + 1], [x, y - 1]);
+    }
+
+    ctx.putImageData(imageData, 0, 0);
+    saveState();
+  }
+}
+
+// Helper Functions for Flood Fill
+function hexToRgba(hex) {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return [r, g, b, 255]; // Assuming full opacity
+}
+
+function colorMatch(a, b) {
+  return a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3];
+}
