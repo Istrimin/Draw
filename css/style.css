@@ -111,7 +111,7 @@ input[type="color"]:hover,
 input[type="range"]:hover {
   opacity: 0.8;
   cursor: pointer;
-  color: gold;
+  color: rgb(255, 239, 146);
 }
 
 button:hover {
