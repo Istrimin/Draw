@@ -1,4 +1,4 @@
-vkBridge.send('VKWebAppInit');
+// vkBridge.send('VKWebAppInit');
 
 // ---------- Canvas and Context ----------
 const canvas = document.getElementById('drawingCanvas');
@@ -240,7 +240,10 @@ function floodFill(e) {
   const targetColor = ctx.getImageData(e.offsetX, e.offsetY, 1, 1).data;
   const fillColor = hexToRgba(colorPicker.value);
 
-  if (!colorMatch(targetColor, fillColor)) {
+  // Tolerance Level (adjust as needed)
+  const tolerance = 10; // Allow a difference of 10 in RGB values
+
+  if (!colorMatch(targetColor, fillColor, tolerance)) { // Pass tolerance to colorMatch
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     const data = imageData.data;
     const width = imageData.width;
@@ -250,7 +253,8 @@ function floodFill(e) {
       const [x, y] = stack.pop();
       const index = (y * width + x) * 4;
 
-      if (index < 0 || index > data.length - 4 || !colorMatch(data.slice(index, index + 4), targetColor)) {
+      if (index < 0 || index > data.length - 4 || 
+          !colorMatch(data.slice(index, index + 4), targetColor, tolerance)) { // Check with tolerance
         continue;
       }
 
@@ -275,6 +279,9 @@ function hexToRgba(hex) {
   return [r, g, b, 255]; // Assuming full opacity
 }
 
-function colorMatch(a, b) {
-  return a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3];
+function colorMatch(a, b, tolerance) {
+  return Math.abs(a[0] - b[0]) <= tolerance &&
+         Math.abs(a[1] - b[1]) <= tolerance &&
+         Math.abs(a[2] - b[2]) <= tolerance &&
+         Math.abs(a[3] - b[3]) <= tolerance;
 }
