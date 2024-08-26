@@ -1,4 +1,4 @@
-// vkBridge.send('VKWebAppInit');
+vkBridge.send('VKWebAppInit');
 
 // ---------- Canvas and Context ----------
 const canvas = document.getElementById('drawingCanvas');
