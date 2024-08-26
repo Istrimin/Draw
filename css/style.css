@@ -184,12 +184,18 @@ button:hover {
 
 
 .button-row {
+
+    width: 100%;
+    height: 100%;
   display: flex;
   flex-wrap: wrap; /* Allow buttons to wrap to the next line */
   justify-content: space-between; /* Distribute buttons evenly */
 }
 
 .button-row button {
+
+    width: 100%;
+    height: 100%;
   /* Adjust button width as needed */
   flex: 0 0 auto; /* Don't grow, don't shrink, take natural width */
   margin-bottom: 5px; /* Add spacing between button rows */
