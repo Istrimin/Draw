@@ -27,17 +27,47 @@ body {
 
 
 :root {
-  --button-color: rgb(25, 25, 25); 
-  --button-text-color: rgb(211, 116, 255);
+    --button-color: rgb(25, 25, 25);
+    --button-text-color: rgb(211, 116, 255);
 }
 
-/* Target the slider element */
 input[type="range"] {
-  width: 80%; /* Make it take up full available width */
+    width: 50%;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 10px;
+    background: #363535;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
 }
+
+input[type="range"]:hover {
+    opacity: 1;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #04AA6D;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #04AA6D;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
 
 #symmetry.active {
-    background-color: rgb(0, 42, 4); 
+    background-color: rgb(0, 42, 4);
     color: rgb(164, 255, 154)
 }
 
@@ -45,7 +75,7 @@ input[type="range"] {
     width: 100%;
     height: 100%;
     background-color: rgb(47, 0, 45);
-    background-size:cover;
+    background-size: cover;
     padding: 5px;
     border-radius: 20px;
     text-align: center;
@@ -60,17 +90,17 @@ canvas {
 .custom-file-upload {
     background-color: var(--button-color);
     color: var(--button-text-color);
-    padding: 10px; 
-    cursor: pointer; 
+    padding: 10px;
+    cursor: pointer;
 }
 
 #saveImageButton {
-      background-color: var(--button-color);
-      color: var(--button-text-color);
-      padding: 10px;
-      border: none;
-      cursor: pointer;
-    }
+    background-color: var(--button-color);
+    color: var(--button-text-color);
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
 
 
 
@@ -84,7 +114,7 @@ canvas {
 
 .color-picker {
     display: flex;
-    background-color:gold;
+    background-color: gold;
     margin-bottom: 10px;
 }
 
@@ -93,15 +123,17 @@ canvas {
     justify-content: center;
 }
 
-.tools input, .tools button {
+.tools input,
+.tools button {
     margin: 0 5px;
 }
 
-button { 
+button {
     background-color: var(--button-color);
     color: var(--button-text-color);
     font-style: italic;
-    font-size: 18px; /* Add this line with your desired font size */
+    font-size: 18px;
+    /* Add this line with your desired font size */
 }
 
 
@@ -109,11 +141,11 @@ button:hover,
 .custom-file-upload:hover,
 input[type="color"]:hover,
 input[type="range"]:hover {
-  opacity: 0.8;
-  cursor: pointer;
-  color: rgb(255, 239, 146);
+    opacity: 0.8;
+    cursor: pointer;
+    color: rgb(255, 239, 146);
 }
 
 button:hover {
-  background-color: rgb(34, 34, 34); 
+    background-color: rgb(34, 34, 34);
 }
