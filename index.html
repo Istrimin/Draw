@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  </head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draw</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+    <script src="script.js" defer></script>
+</head>
 <body>
-  <div class="parent-container">
-    <div class="tools"> 
-        <div class="tools-column">
+    <div class="parent-container"> 
+        <div class="container"> 
+            <canvas id="drawingCanvas"></canvas>
+        </div>
+        <div class="tools">
             <div class="tools-row">
                 <!-- Color Pickers -->
                 <input type="color" id="backgroundPicker" value="#ffffff" title="Цвет фона">
@@ -23,7 +31,7 @@
                 <input type="range" id="opacity" min="1" max="100" value="100">
             </div>
 
-            <div class="button-column"> 
+            <div class="button-row"> 
                 <!-- Image Upload -->
                 <label for="imageInput">
                     <button id="customUploadButton" title="Загрузить изображение">🌺 </button>
@@ -47,13 +55,9 @@
             </div>
         </div>
     </div>
-    <div class="container"> 
-      <canvas id="drawingCanvas"></canvas>
-    </div>
-  </div>
 
-  <script>
-    // ... (your existing JavaScript code)
-  </script>
+    <script>
+        // ... (your existing JavaScript code)
+    </script>
 </body>
 </html>
