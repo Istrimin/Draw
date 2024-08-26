@@ -300,3 +300,38 @@ function colorMatch(a, b, tolerance) {
          Math.abs(a[2] - b[2]) <= tolerance &&
          Math.abs(a[3] - b[3]) <= tolerance;
 }
+
+
+
+// add  хинты и прочее
+// Найдите элементы input для размера кисти и прозрачности
+const brushSizeInput = document.getElementById('brushSize');
+const opacityInput = document.getElementById('opacity');
+
+// Создайте элементы <span> для отображения значений
+const brushSizeValue = document.createElement('span');
+const opacityValue = document.createElement('span');
+
+// Добавьте начальные значения в <span>
+brushSizeValue.textContent = brushSizeInput.value;
+opacityValue.textContent = opacityInput.value;
+
+// Добавьте классы к <span> для стилизации (необязательно)
+brushSizeValue.classList.add('input-value');
+opacityValue.classList.add('input-value');
+
+// Вставьте <span> после соответствующих input
+brushSizeInput.parentNode.insertBefore(brushSizeValue, brushSizeInput.nextSibling);
+opacityInput.parentNode.insertBefore(opacityValue, opacityInput.nextSibling);
+
+// Добавьте обработчики событий для обновления значений при изменении input
+brushSizeInput.addEventListener('input', () => {
+  brushSizeValue.textContent = brushSizeInput.value;
+});
+
+
+opacityInput.addEventListener('input', () => {
+  opacityValue.textContent = opacityInput.value;
+  // Update the ctx.globalAlpha property
+  ctx.globalAlpha = opacityInput.value / 100; 
+});
