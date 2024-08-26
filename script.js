@@ -22,9 +22,6 @@ const eraserButton = document.getElementById('eraser'); // Note: This seems to b
 const symmetryButton = document.getElementById('symmetry');
 
 const floodFillButton = document.getElementById('floodFillButton');
-
-
-
 let isFloodFillActive = false;
 
 
@@ -40,57 +37,6 @@ let isEraser = false;
 let uploadedImage = null;
 
 // ---------- Initialization ----------
-
-
-
-
-
-// Flood Fill Activation
-floodFillButton.addEventListener('click', () => {
-  isFloodFillActive = !isFloodFillActive; // Toggle the state on each click
-  floodFillButton.classList.toggle('active', isFloodFillActive); // Toggle the class
-});
-
-
-floodFillButton.addEventListener('mouseup', () => {
-  isFloodFillActive = false;
-  floodFillButton.classList.remove('active'); // Remove the 'active' class
-});
-
-floodFillButton.addEventListener('mousedown', () => {
-  isFloodFillActive = true;
-});
-
-floodFillButton.addEventListener('mouseup', () => {
-  isFloodFillActive = false;
-});
-
-// Canvas Interaction for Flood Fill
-canvas.addEventListener('click', (e) => {
-  if (isFloodFillActive) {
-    floodFill(e);
-  }
-});
-
-
-// Flood Fill Activation
-floodFillButton.addEventListener('click', () => {
-  isFloodFillActive = !isFloodFillActive; // Toggle the state on each click
-  floodFillButton.classList.toggle('active', isFloodFillActive); // Toggle the class
-});
-
-// Canvas Interaction for Flood Fill
-canvas.addEventListener('click', (e) => {
-  if (isFloodFillActive) { 
-    floodFill(e);
-  }
-});
-
-
-
-
-
-
 ctx.fillStyle = '#' + Math.floor(Math.random() * 16777215).toString(16);
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 brushSize.value = 1; 
