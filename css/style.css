@@ -146,7 +146,6 @@ button {
     color: var(--button-text-color);
     font-style: bold;
     font-size: 18px;
-    /* Add this line with your desired font size */
 }
 
 
@@ -156,7 +155,7 @@ input[type="color"]:hover,
 input[type="range"]:hover {
     opacity: 0.8;
     cursor: pointer;
-    color: rgb(255, 239, 146);
+    color: rgb(0, 255, 13);
 }
 
 button:hover {
