@@ -21,6 +21,10 @@ const customUploadButton = document.getElementById('customUploadButton');
 const eraserButton = document.getElementById('eraser'); // Note: This seems to be a duplicate of eraserBtn
 const symmetryButton = document.getElementById('symmetry');
 
+
+
+
+
 // ---------- Drawing State ----------
 let symmetry = false;
 let isDrawing = false;
@@ -219,3 +223,13 @@ function downloadImage() {
   link.href = canvas.toDataURL('image/png');
   link.click();
 }
+
+// add resize canvas
+function resizeCanvas() {
+    canvas.width = canvas.parentElement.offsetWidth; // Or desired width
+    canvas.height = canvas.parentElement.offsetHeight; // Or desired height
+}
+
+// Call resizeCanvas initially and on window resize
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
