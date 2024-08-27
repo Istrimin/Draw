@@ -6,85 +6,94 @@
     <title>Draw</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
-    <script src="script.js" defer></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js" defer></script> 
 </head>
 <body>
     <div class="parent-container"> 
-
-
-
-    <div class="container">
+        <div class="container">
             <div class="button-column"> 
-                <!-- Image Upload -->
                 <label for="imageInput">
                     <button id="customUploadButton" title="Загрузить изображение">🌺</button>
                 </label>
                 <input type="file" id="imageInput" accept="image/*" style="display: none;"> 
 
-                <!-- Action Buttons -->
                 <button id="saveImageBtn" title="Сохранить изображение">🎬 </button>
                 <button id="eraser" title="Ластик">💩</button>
                 <button id="undo" title="Отменить">⟲  </button>
                 <button id="redo" title="Повторить">⟳ </button>
                 <button id="clear" title="Очистить">💀</button>                
                 <button id="symmetry" title="Симметрия">🦋</button> 
-                <button id ="thickenLinesBtn"title ="Утолщить все линии">!</button>
+                <button id="thickenLinesBtn" title="Утолщить все линии">!</button>
 
-        <div class="tools">
-            <div class="tools-column">
-                <!-- Color Pickers -->
-                <input type="color" id="backgroundPicker" value="#ffffff" title="Цвет фона">
-                <input type="color" id="colorPicker" value="#000000" title="Цвет кисти">
-            </div>
-            </div>
-                <!-- VK Specific Buttons -->
+                <div class="tools">
+                    <div class="tools-column">
+                        <input type="color" id="backgroundPicker" value="#ffffff" title="Цвет фона">
+                        <input type="color" id="colorPicker" value="#000000" title="Цвет кисти">
+                    </div>
+                </div>
+                <button id="changeCursorBtn" title="Сменить курсор">🎨</button>
+                <ul id="cursorList" style="display:none;">
+                </ul>
                 <button id="inviteFriends" title="Пригласить друзей"> 👥</button> 
                 <button id="addToFavorites" title="Добавить в избранное">📌</button>                 
                 <button id="settings" title="Настройки">⚙️</button>
+            </div>
+        </div>
 
-    </div>
+        <div class="canvas-and-sliders"> 
+            <div class="container"> 
+                <canvas id="drawingCanvas" width="800" height="600"></canvas>
             </div>
 
+            <div class="tools-column">
+                <label for="opacity" title="Прозрачность">👻 </label>
+                <input type="range" id="opacity" min="1" max="100" value="100">
+            </div>
 
-        </div> 
-
-        <div class="canvas-and-sliders"> <div class="container"> 
-            <canvas id="drawingCanvas" width="800" height="600"></canvas>
+            <div class="tools-column"> 
+                <label for="brushSize" title="Размер кисти">◯ </label>
+                <input type="range" id="brushSize" min="1" max="100" value="1">
+            </div>
         </div>
-
-        <!-- Sliders moved below the canvas -->
-        <div class="tools-column">
-            <label for="opacity" title="Прозрачность">👻 </label>
-            <input type="range" id="opacity" min="1" max="100" value="100">
-        </div>
-
-        <div class="tools-column"> 
-            <label for="brushSize" title="Размер кисти">◯ </label>
-            <input type="range" id="brushSize" min="1" max="100" value="1">
-        </div>
-        </div>
-
     </div>
 
     <script>
+      vkBridge.send('VKWebAppInit');
+      // Функция для отображения списка курсоров
+      function showCursorList() {
+        $('#cursorList').toggle(); 
+      }
 
-vkBridge.send('VKWebAppInit');
+      // Обработчик клика по кнопке "Сменить курсор"
+      $('#changeCursorBtn').click(function() {
+        showCursorList();
+      });
 
-
-//   const thickenLinesBtn = document.getElementById('thickenLinesBtn');
-
-
-//   // Add an event listener for a click event
-//   thickenLinesBtn.addEventListener('click', thickenLines);
-
-//   // Define a function to handle the click event
-//   function thickenLines() {
-//     alert("test!");
-//   };
-
-
-
+      // Загрузка списка курсоров из папки "cursors"
+      $.ajax({
+        url: 'cursors', // Путь к папке с курсорами (относительно корня проекта)
+        success: function(data) {
+          // Парсинг ответа сервера (предполагается, что сервер возвращает список файлов)
+          var cursors = data.split('\n'); 
+          for (var i = 0; i < cursors.length; i++) {
+            var cursorFile = cursors[i];
+            if (cursorFile) { // Проверка на пустые строки
+              // Создание элемента списка для каждого курсора
+              var listItem = $('<li><a href="#">' + cursorFile + '</a></li>');
+              // Добавление обработчика клика для каждого элемента списка
+              listItem.click(function(e) {
+                e.preventDefault(); 
+                var cursorUrl = 'cursors/' + $(this).text(); 
+                canvas.style.cursor = 'url(' + cursorUrl + '), auto'; 
+                $('#cursorList').hide(); 
+              });
+              // Добавление элемента списка в список курсоров
+              $('#cursorList').append(listItem);
+            }
+          }
+        }
+      });
     </script>
 </body>
 </html>
