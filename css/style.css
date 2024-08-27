@@ -69,7 +69,7 @@ button:hover {
 }
 
 .tools {
-    width: 20%;
+    /* width: 10%; */
     color: var(--button-text-color);
     /* display: flex; */
     flex-direction: column;
