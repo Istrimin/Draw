@@ -8,41 +8,14 @@
     <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="cursors.js"></script>
-<script src ="canvas.js"></script>
+<!-- <script src ="canvas.js"></script> -->
 <script src="script.js" defer></script>
 
-    <style>
-        .cursor-panel {
-            position: absolute;
-            top: 50px;
-            right: 10px;
-            background-color: white;
-            border: 1px solid #ccc;
-            padding: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            max-height: 300px;
-            overflow-y: auto;
-        }
-        .cursor-item {
-            padding: 5px;
-            margin: 5px;
-            border: 1px solid #eee;
-            cursor: pointer;
-            display: inline-block;
-        }
-        .cursor-item:hover {
-            background-color: #f0f0f0;
-        }
-        .cursor-preview {
-            width: 32px;
-            height: 32px;
-        }
-    </style>
 </head>
 <body>
     <div class="parent-container">
         <div class="container">
-            <div class="button-column">
+            <div class="button-column" style="overflow-y: hidden;">
                 <label for="imageInput">
                     <button id="customUploadButton" title="Загрузить изображение">🌺</button>
                 </label>
@@ -91,6 +64,9 @@
 
     <script>
         vkBridge.send('VKWebAppInit');
+
+
+
     </script>
 </body>
 </html>
