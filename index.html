@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,25 +8,24 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="cursors.js"></script>
-<!-- <script src ="canvas.js"></script> -->
-<script src="script.js" defer></script>
-
+    <script src="cursors.js"></script>
+    <!-- <script src ="canvas.js"></script> -->
+    <script src="script.js" defer></script>
 </head>
+
 <body>
     <div class="parent-container">
         <div class="container">
-        <div class="button-column" style="overflow-y: auto;">
-
+            <div class="button-column" style="overflow-y: auto;">
                 <label for="imageInput">
                     <button id="customUploadButton" title="Загрузить изображение">🌺</button>
                 </label>
                 <input type="file" id="imageInput" accept="image/*" style="display: none;">
                 <button id="saveImageBtn" title="Сохранить изображение">🎬 </button>
                 <button id="eraser" title="Ластик">💩</button>
-                <button id="undo" title="Отменить">⟲  </button>
+                <button id="undo" title="Отменить">⟲ </button>
                 <button id="redo" title="Повторить">⟳ </button>
-                <button id="clear" title="Очистить">💀</button>                
+                <button id="clear" title="Очистить">💀</button>
                 <button id="symmetry" title="Симметрия">🦋</button>
                 <!-- <button id="thickenLinesBtn" title="Утолщить все линии">!</button> -->
                 <div class="tools">
@@ -36,7 +36,7 @@
                 </div>
                 <button id="changeCursorBtn" title="Сменить курсор">🎨</button>
                 <button id="inviteFriends" title="Пригласить друзей"> 👥</button>
-                <button id="addToFavorites" title="Добавить в избранное">📌</button>                
+                <button id="addToFavorites" title="Добавить в избранное">📌</button>
                 <button id="settings" title="Настройки">⚙️</button>
             </div>
         </div>
@@ -44,20 +44,18 @@
             <div class="container">
                 <canvas id="drawingCanvas" width="820" height="400"></canvas>
             </div>
-<div class="slider-group">
-
-            <div class="tools-column">
-                <label for="opacity" title="Прозрачность">👻</label>
-                <input type="range" id="opacity" min="1" max="100" value="100">
+            <div class="slider-group">
+                <div class="tools-column">
+                    <label for="opacity" title="Прозрачность">👻</label>
+                    <input type="range" id="opacity" min="1" max="100" value="100">
+                </div>
+                <div class="tools-column">
+                    <label for="brushSize" title="Размер кисти">🖌️</label>
+                    <input type="range" id="brushSize" min="1" max="100" value="1">
+                </div>
             </div>
-            <div class="tools-column">
-                <label for="brushSize" title="Размер кисти">🖌️</label>
-                <input type="range" id="brushSize" min="1" max="100" value="1">
-            </div>
-</div>
         </div>
     </div>
-
     <!-- Добавляем вкладку с курсорами -->
     <div id="cursorPanel" class="cursor-panel" style="display: none;">
         <h3>Выберите курсор</h3>
@@ -65,7 +63,6 @@
             <!-- Здесь будут отображаться доступные курсоры -->
         </div>
     </div>
-
     <script>
         vkBridge.send('VKWebAppInit');
 
@@ -73,4 +70,5 @@
 
     </script>
 </body>
+
 </html>
