@@ -19,6 +19,7 @@ const saveImageBtn = document.getElementById('saveImageBtn');
 const imageInput = document.getElementById('imageInput');
 const customUploadButton = document.getElementById('customUploadButton');
 const symmetryButton = document.getElementById('symmetry');
+const thickenLinesBtn = document.getElementById('thickenLinesBtn'); // Add the new button
 
 // const floodFillButton = document.getElementById('floodFillButton');
 // let isFloodFillActive = false;
@@ -34,6 +35,7 @@ let history = [];
 let redoHistory = [];
 let isEraser = false;
 let uploadedImage = null;
+let clearedCanvasState = null; // Variable to store the cleared state
 
 // ---------- Initialization ----------
 ctx.fillStyle = '#' + Math.floor(Math.random() * 16777215).toString(16);
@@ -88,6 +90,24 @@ backgroundPicker.addEventListener('input', (event) => {
     canvas.style.backgroundColor = event.target.value;
     redrawCanvas();
 });
+
+
+// Добавьте обработчики событий для обновления значений при изменении input
+brushSizeInput.addEventListener('input', () => {
+  brushSizeValue.textContent = brushSizeInput.value;
+});
+
+
+opacityInput.addEventListener('input', () => {
+  opacityValue.textContent = opacityInput.value;
+  // Update the ctx.globalAlpha property
+  ctx.globalAlpha = opacityInput.value / 100; 
+});
+
+
+thickenLinesBtn.addEventListener('click', thickenLines);
+
+
 
 // ---------- Functions ----------
 
@@ -177,10 +197,15 @@ function redrawCanvas() {
 }
 
 function clearCanvas() {
+    // Store the current canvas state before clearing
+    clearedCanvasState = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
     ctx.fillStyle = backgroundPicker.value;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    history = [ctx.getImageData(0, 0, canvas.width, canvas.height)];
-    // redoHistory = [];
+
+    // Instead of resetting history, push the cleared state
+    history.push(clearedCanvasState); 
+    redoHistory = []; 
 }
 
 // Tool Functions
@@ -210,12 +235,17 @@ function setEraserCursor() {
     canvas.classList.remove('drawingCursor');
 }
 
-// History Management
 function undo() {
-    if (history.length > 0) {
+    if (history.length > 1) { // Check if there's more than one state in history
         redoHistory.push(history.pop());
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        redrawCanvas(); 
+
+        // If history is empty after popping, restore from clearedCanvasState
+        if (history.length === 0 && clearedCanvasState) {
+            ctx.putImageData(clearedCanvasState, 0, 0);
+        } else {
+            redrawCanvas(); 
+        }
     }
 }
 
@@ -324,14 +354,26 @@ opacityValue.classList.add('input-value');
 brushSizeInput.parentNode.insertBefore(brushSizeValue, brushSizeInput.nextSibling);
 opacityInput.parentNode.insertBefore(opacityValue, opacityInput.nextSibling);
 
-// Добавьте обработчики событий для обновления значений при изменении input
-brushSizeInput.addEventListener('input', () => {
-  brushSizeValue.textContent = brushSizeInput.value;
-});
 
+function thickenLines() {
+  if (history.length > 0) {
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const originalImageData = ctx.createImageData(canvas.width, canvas.height);
+    originalImageData.data.set(imageData.data); // Store the original state
 
-opacityInput.addEventListener('input', () => {
-  opacityValue.textContent = opacityInput.value;
-  // Update the ctx.globalAlpha property
-  ctx.globalAlpha = opacityInput.value / 100; 
-});
+    // Increase line width (you can adjust the increment value)
+    let newBrushSize = parseInt(brushSize.value) + 1; 
+    brushSize.value = newBrushSize; // Update the UI slider
+
+    // Redraw all strokes with the thicker brush size
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    history.forEach(state => {
+      ctx.putImageData(state, 0, 0);
+      redrawCanvas(); 
+    });
+
+    // Save the thickened state as a new state in history
+    history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    redoHistory = []; // Clear redo history
+  }
+}
