@@ -17,6 +17,7 @@ const saveImageBtn = document.getElementById('saveImageBtn');
 const imageInput = document.getElementById('imageInput');
 const customUploadButton = document.getElementById('customUploadButton');
 const symmetryButton = document.getElementById('symmetry');
+const fillModeButton = document.getElementById('fillModeBtn'); // Assuming you have a button with this ID
 
 // Create elements to display brush size and opacity values
 const brushSizeValue = document.createElement('span');
@@ -40,6 +41,7 @@ let redoHistory = [];
 let isEraser = false;
 let uploadedImage = null;
 let clearedCanvasState = null; // Variable to store the cleared state
+let isFillMode = false;
 
 // ---------- Initialization ----------
 ctx.fillStyle = '#' + Math.floor(Math.random() * 16777215).toString(16);
@@ -62,13 +64,19 @@ symmetryButton.addEventListener('click', toggleSymmetry);
 eraserBtn.addEventListener('click', toggleEraser); 
 eraserBtn.addEventListener('click', setEraserCursor); // If this is needed, consider renaming for clarity
 setDrawingCursor(); // Set initial cursor
-
+fillModeButton.addEventListener('click', toggleFillMode);
 // Canvas Interactions
 canvas.addEventListener('mousedown', startDrawing);
 canvas.addEventListener('mousemove', draw);
 canvas.addEventListener('mouseup', stopDrawing);
 canvas.addEventListener('mouseout', stopDrawing);
-canvas.addEventListener('click', floodFill); // Add flood fill on click
+
+// Modify the event listener for floodFill
+canvas.addEventListener('click', (e) => {
+  if (isFillMode) {
+    floodFill(e);
+  }
+});
 
 document.addEventListener('keydown', (event) => {
   if (event.code === 'KeyZ') { 
@@ -196,6 +204,14 @@ function clearCanvas() {
 }
 
 // Tool Functions
+
+// Function to toggle fill mode
+function toggleFillMode() {
+  isFillMode = !isFillMode;
+  // Optionally add visual indication of fill mode being active or inactive
+  fillModeButton.classList.toggle('active', isFillMode); 
+}
+
 function toggleSymmetry() {
     symmetry = !symmetry;
     symmetryButton.classList.toggle('active', symmetry);
@@ -256,15 +272,7 @@ function downloadImage() {
   link.click();
 }
 
-// Resize Canvas
-function resizeCanvas() {
-    canvas.width = canvas.parentElement.offsetWidth; 
-    canvas.height = canvas.parentElement.offsetHeight; 
-}
-
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
-
+// 
 // Flood Fill Functionality
 function floodFill(e) {
   const targetColor = ctx.getImageData(e.offsetX, e.offsetY, 1, 1).data;

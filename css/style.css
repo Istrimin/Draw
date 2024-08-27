@@ -26,6 +26,7 @@ body {
 :root {
     --button-color: rgb(25, 25, 25);
     --button-text-color: rgb(211, 116, 255);
+    --button-active-color: rgb(9, 95, 0);
 }
 
 button {
@@ -48,12 +49,13 @@ button:hover {
     background-color: rgb(61, 61, 61);
 }
 
-/* #floodFillButton.active {
-    background-color: lightblue;
-} */
+#fillModeBtn.active {
+    background-color: var(--button-active-color);
+    color: rgb(255, 0, 0);
+}
 
 #symmetry.active {
-    background-color: rgb(0, 42, 4);
+    background-color: var(--button-active-color);
     color: rgb(164, 255, 154);
 }
 
