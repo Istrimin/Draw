@@ -17,7 +17,7 @@ const saveImageBtn = document.getElementById('saveImageBtn');
 const imageInput = document.getElementById('imageInput');
 const customUploadButton = document.getElementById('customUploadButton');
 const symmetryButton = document.getElementById('symmetry');
-const fillModeButton = document.getElementById('fillModeBtn'); // Assuming you have a button with this ID
+const fillModeBtn = document.getElementById('fillModeBtn'); // Assuming you have a button with this ID
 
 // Create elements to display brush size and opacity values
 const brushSizeValue = document.createElement('span');
@@ -64,7 +64,7 @@ symmetryButton.addEventListener('click', toggleSymmetry);
 eraserBtn.addEventListener('click', toggleEraser); 
 eraserBtn.addEventListener('click', setEraserCursor); // If this is needed, consider renaming for clarity
 setDrawingCursor(); // Set initial cursor
-fillModeButton.addEventListener('click', toggleFillMode);
+fillModeBtn.addEventListener('click', toggleFillMode);
 // Canvas Interactions
 canvas.addEventListener('mousedown', startDrawing);
 canvas.addEventListener('mousemove', draw);
@@ -209,7 +209,7 @@ function clearCanvas() {
 function toggleFillMode() {
   isFillMode = !isFillMode;
   // Optionally add visual indication of fill mode being active or inactive
-  fillModeButton.classList.toggle('active', isFillMode); 
+  fillModeBtn.classList.toggle('active', isFillMode); 
 }
 
 function toggleSymmetry() {
