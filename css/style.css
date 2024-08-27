@@ -7,15 +7,16 @@ body {
     background-attachment: fixed;
     font-family: 'Roboto', sans-serif;
 
+    /* Basic layout */
     margin: 0;
     padding: 0;
     min-height: 100vh;
     display: flex;
     align-items: flex-start;
-
     justify-content: center;
 }
 
+/* Cursors */
 .drawingCursor {
     cursor: url('../cursors/pencil.png'), auto;
 }
@@ -24,21 +25,13 @@ body {
     cursor: url('../cursors/eraser.png'), auto;
 }
 
+/* Variables */
 :root {
     --button-color: rgb(25, 25, 25);
     --button-text-color: rgb(211, 116, 255);
 }
 
-
-#floodFillButton.active {
-    background-color: lightblue;
-}
-
-#symmetry.active {
-    background-color: rgb(0, 42, 4);
-    color: rgb(164, 255, 154);
-}
-
+/* Buttons */
 button {
     background-color: var(--button-color);
     color: var(--button-text-color);
@@ -59,10 +52,29 @@ button:hover {
     background-color: rgb(61, 61, 61);
 }
 
+/* Specific button styles */
+#floodFillButton.active {
+    background-color: lightblue;
+}
+
+#symmetry.active {
+    background-color: rgb(0, 42, 4);
+    color: rgb(164, 255, 154);
+}
+
+/* Layout containers */
 .parent-container {
     display: flex;
     flex-direction: row;
     height: 100vh;
+}
+
+.button-column {
+    display: flex;
+    flex-direction: column;
+    max-height: 600px; /* Use px for pixel values */
+    margin-bottom: 5px;
+    overflow-y: auto; 
 }
 
 .tools {
@@ -87,17 +99,59 @@ button:hover {
     align-items: center;
 }
 
-
-.button-column {
-    display: flex;
-    max-height: 300;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 5px;
-    overflow-y: auto; 
-
+/* Canvas */
+canvas {
+    border-radius: 20px;
 }
 
+/* Canvas and sliders container */
+.canvas-and-sliders {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* Container for canvas */
+.container {
+    border-radius: 20px;
+    margin: 0;
+    padding: 0;
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+}
+
+/* File upload button */
+.custom-file-upload {
+    background-color: var(--button-color);
+    color: var(--button-text-color);
+    padding: 10px;
+    cursor: pointer;
+}
+
+/* Save image button */
+#saveImageButton {
+    background-color: var(--button-color);
+    color: var(--button-text-color);
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Color picker */
+.color-picker {
+    display: flex;
+    background-color: gold;
+    margin-bottom: 10px;
+}
+
+/* Tools input and button spacing */
+.tools input,
+.tools button {
+    margin: 0 5px;
+}
+
+/* Range input styles */
 input[type="range"] {
     width: 50%;
     -webkit-appearance: none;
@@ -115,7 +169,7 @@ input[type="range"]:hover {
 }
 
 input[type="range"] {
-    width: 100%;
+    width: 100%; 
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -135,63 +189,13 @@ input[type="range"]::-moz-range-thumb {
     border-radius: 50%;
 }
 
-
-canvas {
-    border-radius: 20px;
-}
-
-.custom-file-upload {
-    background-color: var(--button-color);
-    color: var(--button-text-color);
-    padding: 10px;
-    cursor: pointer;
-}
-
-#saveImageButton {
-    background-color: var(--button-color);
-    color: var(--button-text-color);
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-}
-
-.color-picker {
-    display: flex;
-    background-color: gold;
-    margin-bottom: 10px;
-}
-
-.tools input,
-.tools button {
-    margin: 0 5px;
-}
-
-
-
-.canvas-and-sliders {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-
-}
-
-
-.container {
-    border-radius: 20px;
-    margin: 0;
-    padding: 0;
-    flex-grow: 1;
-    width: 100%;
-    height: 100%;
-}
-
-
+/* Cursor panel */
 .cursor-panel {
     position: absolute;
     top: 50px;
     right: 10px;
-    background-color: rgb(255, 0, 0);
-    border: 1px solid #00ffe5;
+    background-color: rgb(0, 0, 0);
+    border: 1px solid #00ffe500;
     padding: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     max-height: 300px;
@@ -207,7 +211,7 @@ canvas {
 .cursor-preview {
     width: 32px;
     height: 32px;
-    border: 1px solid #00cc41;
+    border: 1px solid #00cc4100;
     padding: 2px;
 }
 
@@ -216,15 +220,16 @@ canvas {
 }
 
 
-/* ::-webkit-scrollbar {
+::-webkit-scrollbar {
     width: 5px;
-} */
+} 
 
-/* ::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
     background: transparent;
-} */
-/* 
+}
+
 ::-webkit-scrollbar-thumb {
     background-color: black;
+    color:bisque;
     border-radius: 2.5px;
-} */
+}
