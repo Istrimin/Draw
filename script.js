@@ -20,75 +20,75 @@ const imageInput = document.getElementById('imageInput');
 const customUploadButton = document.getElementById('customUploadButton');
 const symmetryButton = document.getElementById('symmetry');
 
-// ... (your existing code)
+// // ... (your existing code)
 
-// Create the color picker circle element
-const colorPickerCircle = document.createElement('div');
-colorPickerCircle.id = 'colorPickerCircle';
-colorPickerCircle.style.width = '30px'; // Adjust size as needed
-colorPickerCircle.style.height = '30px';
-colorPickerCircle.style.borderRadius = '50%';
-colorPickerCircle.style.border = '1px solid black';
-colorPickerCircle.style.position = 'relative'; // To position the color dots inside
-colorPickerCircle.style.cursor = 'pointer';
-document.querySelector('.tools-column').appendChild(colorPickerCircle);
+// // Create the color picker circle element
+// const colorPickerCircle = document.createElement('div');
+// colorPickerCircle.id = 'colorPickerCircle';
+// colorPickerCircle.style.width = '30px'; // Adjust size as needed
+// colorPickerCircle.style.height = '30px';
+// colorPickerCircle.style.borderRadius = '50%';
+// colorPickerCircle.style.border = '1px solid black';
+// colorPickerCircle.style.position = 'relative'; // To position the color dots inside
+// colorPickerCircle.style.cursor = 'pointer';
+// document.querySelector('.tools-column').appendChild(colorPickerCircle);
 
-const usedColors = []; // Array to store used colors
+// const usedColors = []; // Array to store used colors
 
-// Function to add a color dot to the circle
-function addColorDot(color) {
-  const colorDot = document.createElement('div');
-  colorDot.style.width = '10px'; // Adjust dot size as needed
-  colorDot.style.height = '10px';
-  colorDot.style.borderRadius = '50%';
-  colorDot.style.backgroundColor = color;
-  colorDot.style.position = 'absolute';
-  // Calculate random position within the circle
-  const x = Math.floor(Math.random() * 20); // Adjust range as needed
-  const y = Math.floor(Math.random() * 20);
-  colorDot.style.left = x + 'px';
-  colorDot.style.top = y + 'px';
-  colorPickerCircle.appendChild(colorDot);
-}
+// // Function to add a color dot to the circle
+// function addColorDot(color) {
+//   const colorDot = document.createElement('div');
+//   colorDot.style.width = '10px'; // Adjust dot size as needed
+//   colorDot.style.height = '10px';
+//   colorDot.style.borderRadius = '50%';
+//   colorDot.style.backgroundColor = color;
+//   colorDot.style.position = 'absolute';
+//   // Calculate random position within the circle
+//   const x = Math.floor(Math.random() * 20); // Adjust range as needed
+//   const y = Math.floor(Math.random() * 20);
+//   colorDot.style.left = x + 'px';
+//   colorDot.style.top = y + 'px';
+//   colorPickerCircle.appendChild(colorDot);
+// }
 
-// Event listener for color input change
-colorPicker.addEventListener('change', () => {
-  const selectedColor = colorPicker.value;
-  if (!usedColors.includes(selectedColor)) {
-    usedColors.push(selectedColor);
-    addColorDot(selectedColor);
-  }
-});
+// // Event listener for color input change
+// colorPicker.addEventListener('change', () => {
+//   const selectedColor = colorPicker.value;
+//   if (!usedColors.includes(selectedColor)) {
+//     usedColors.push(selectedColor);
+//     addColorDot(selectedColor);
+//   }
+// });
 
-// Event listener for clicking the color picker circle
-colorPickerCircle.addEventListener('click', () => {
-  // Create a list to display used colors
-  const colorList = document.createElement('ul');
-  colorList.style.position = 'absolute';
-  colorList.style.top = '100%'; // Position below the circle
-  colorList.style.left = '0';
-  colorList.style.listStyle = 'none';
-  colorList.style.padding = '0';
-  colorList.style.margin = '0';
-  colorList.style.backgroundColor = 'white';
-  colorList.style.border = '1px solid #ccc';
+// // Event listener for clicking the color picker circle
+// colorPickerCircle.addEventListener('click', () => {
+//   // Create a list to display used colors
+//   const colorList = document.createElement('ul');
+//   colorList.style.position = 'absolute';
+//   colorList.style.top = '100%'; // Position below the circle
+//   colorList.style.left = '0';
+//   colorList.style.listStyle = 'none';
+//   colorList.style.padding = '0';
+//   colorList.style.margin = '0';
+//   colorList.style.backgroundColor = 'white';
+//   colorList.style.border = '1px solid #ccc';
 
-  usedColors.forEach(color => {
-    const listItem = document.createElement('li');
-    listItem.style.padding = '5px';
-    listItem.style.backgroundColor = color;
-    listItem.style.cursor = 'pointer';
-    // Add event listener to set the color input when a color is clicked
-    listItem.addEventListener('click', () => {
-      colorPicker.value = color;
-      // You might want to hide the colorList here
-    });
-    colorList.appendChild(listItem);
-  });
+//   usedColors.forEach(color => {
+//     const listItem = document.createElement('li');
+//     listItem.style.padding = '5px';
+//     listItem.style.backgroundColor = color;
+//     listItem.style.cursor = 'pointer';
+//     // Add event listener to set the color input when a color is clicked
+//     listItem.addEventListener('click', () => {
+//       colorPicker.value = color;
+//       // You might want to hide the colorList here
+//     });
+//     colorList.appendChild(listItem);
+//   });
 
-  // Append the list to the circle or a suitable parent
-  colorPickerCircle.appendChild(colorList);
-});
+//   // Append the list to the circle or a suitable parent
+//   colorPickerCircle.appendChild(colorList);
+// });
 
 
 
