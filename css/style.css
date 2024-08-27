@@ -88,17 +88,14 @@ button:hover {
 }
 
 
-.button-column button {
-    width: 60px;
-    text-align: center;
-    margin: 5px;
-}
-
-
 .button-column {
+    display: flex;
+    max-height: 300;
     display: flex;
     flex-direction: column;
     margin-bottom: 5px;
+    overflow-y: auto; 
+
 }
 
 input[type="range"] {
