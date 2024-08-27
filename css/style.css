@@ -40,7 +40,7 @@ button {
     background-color: var(--button-color);
     color: var(--button-text-color);
     font-style: bold;
-    font-size: 30px;
+    font-size: 20px;
 }
 
 button:hover,
@@ -58,6 +58,7 @@ button:hover {
 
 /* меняем именно канвас и слайдеры */
 .parent-container {
+align-self: top;
     display: flex;
     flex-direction: row; 
     height: 100vh;
@@ -88,8 +89,8 @@ button:hover {
 
 
 .button-column button {
-    width: 50px; /* Adjust as needed */
-    height: 50px; /* Adjust as needed */
+    width: 30px; /* Adjust as needed */
+    height: 30px; /* Adjust as needed */
     text-align: center; /* Center the emoji */
 }
 
@@ -154,6 +155,7 @@ input[type="range"]::-moz-range-thumb {
 /* don't toch */
 canvas {
     border-radius: 20px;
+    align-self: top;
     /* width: 100%;
     height: 100%; */
 }
