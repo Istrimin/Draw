@@ -5,12 +5,17 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    font-family: Arial, sans-serif;
+    /* font-family: Arial, sans-serif; */
+font-family: 'Roboto', sans-serif;
+
     margin: 0;
     padding: 0;
     min-height: 100vh;
     display: flex;
     align-items: flex-start;
+    
+    /* align-items: center; */
+    justify-content: center;
 }
 
 .drawingCursor {
@@ -66,9 +71,9 @@ button:hover {
 .tools {
     width: 20%;
     color: var(--button-text-color);
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     margin-right: 10px;
 }
 
@@ -77,20 +82,21 @@ button:hover {
     flex-direction: column; 
 }
 .tools-column input[type="color"] {
-    margin-bottom: 10px; /* Adjust the value as needed */
-}
+     margin-bottom: 10px; 
+} 
 
 .customUploadButton{
     margin-bottom: 10px;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
 }
 
 
 .button-column button {
-    width: 30px; /* Adjust as needed */
-    height: 30px; /* Adjust as needed */
-    text-align: center; /* Center the emoji */
+    width: 60px; 
+    /* height: 40px;  */
+    text-align: center;
+    margin: 5px; /* Добавляем margin со всех сторон */
 }
 
 
