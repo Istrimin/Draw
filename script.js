@@ -106,7 +106,7 @@ let clearedCanvasState = null; // Variable to store the cleared state
 // ---------- Initialization ----------
 ctx.fillStyle = '#' + Math.floor(Math.random() * 16777215).toString(16);
 ctx.fillRect(0, 0, canvas.width, canvas.height);
-brushSize.value = 1; 
+brushSize.value = 3; 
 
 // ---------- Event Listeners ----------
 
