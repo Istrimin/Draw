@@ -12,21 +12,10 @@
     <div class="parent-container"> 
 
         <div class="tools">
-            <div class="tools-row">
+            <div class="tools-column">
                 <!-- Color Pickers -->
                 <input type="color" id="backgroundPicker" value="#ffffff" title="Цвет фона">
                 <input type="color" id="colorPicker" value="#000000" title="Цвет кисти">
-            </div>
-
-            <div class="tools-row"> 
-                <!-- Brush Settings -->
-                <label for="brushSize" title="Размер кисти">◯ </label>
-                <input type="range" id="brushSize" min="1" max="100" value="1">
-            </div>
-
-            <div class="tools-row">
-                <label for="opacity" title="Прозрачность">👻 </label>
-                <input type="range" id="opacity" min="1" max="100" value="100">
             </div>
 
             <div class="button-column"> 
@@ -44,18 +33,29 @@
                 <button id="clear" title="Очистить">💀</button>                
                 <button id="symmetry" title="Симметрия">🦋</button> 
 
-
                 <!-- VK Specific Buttons -->
-
                 <button id="inviteFriends" title="Пригласить друзей"> 👥</button> 
-                <button id="addToFavorites" title="Добавить в избранное">📌 </button>                 
+                <button id="addToFavorites" title="Добавить в избранное">📌</button>                 
                 <button id="settings" title="Настройки">⚙️</button>
-
             </div>
         </div> 
-        <div class="container"> 
+
+        <div class="canvas-and-sliders"> <div class="container"> 
             <canvas id="drawingCanvas"></canvas>
         </div>
+
+        <!-- Sliders moved below the canvas -->
+        <div class="tools-row">
+            <label for="opacity" title="Прозрачность">👻 </label>
+            <input type="range" id="opacity" min="1" max="100" value="100">
+        </div>
+
+        <div class="tools-row"> 
+            <label for="brushSize" title="Размер кисти">◯ </label>
+            <input type="range" id="brushSize" min="1" max="100" value="1">
+        </div>
+        </div>
+
     </div>
 
     <script>

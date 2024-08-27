@@ -13,7 +13,6 @@ body {
     align-items: center;
 }
 
-/* Cursors */
 .drawingCursor {
     cursor: url('../cursors/pencil.png'), auto;
 }
@@ -22,18 +21,74 @@ body {
     cursor: url('../cursors/eraser.png'), auto;
 }
 
-/* Variables */
 :root {
     --button-color: rgb(25, 25, 25);
     --button-text-color: rgb(211, 116, 255);
 }
 
-/* Flood Fill Button */
+
 #floodFillButton.active {
     background-color: lightblue;
 }
 
-/* Range Input */
+#symmetry.active {
+    background-color: rgb(0, 42, 4);
+    color: rgb(164, 255, 154);
+}
+
+button {
+    background-color: var(--button-color);
+    color: var(--button-text-color);
+    font-style: bold;
+    font-size: 30px;
+}
+
+button:hover,
+.custom-file-upload:hover,
+input[type="color"]:hover,
+input[type="range"]:hover {
+    opacity: 0.8;
+    cursor: pointer;
+    color: rgb(0, 255, 13);
+}
+
+button:hover {
+    background-color: rgb(61, 61, 61);
+}
+
+
+.parent-container {
+    display: flex;
+    flex-direction: row; 
+    height: 100vh;
+}
+
+.tools {
+    width: 20%;
+    color: var(--button-text-color);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 10px;
+}
+
+.button-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.button-column button {
+    margin-bottom: 5px;
+}
+
+.canvas-and-sliders {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+
+
 input[type="range"] {
     width: 50%;
     -webkit-appearance: none;
@@ -71,35 +126,14 @@ input[type="range"]::-moz-range-thumb {
     border-radius: 50%;
 }
 
-/* Tools */
-.tools {
-    width: auto; /* Allow tools to take up their natural width */
-    color: var(--button-text-color);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
-/* Symmetry Button */
-#symmetry.active {
-    background-color: rgb(0, 42, 4);
-    color: rgb(164, 255, 154);
-}
 
-/* Container */
-.container {
-    border-radius: 20px;
-    flex-grow: 1;
-}
-
-/* Canvas */
 canvas {
     border-radius: 20px;
     width: 100%;
     height: 100%;
 }
 
-/* File Upload */
 .custom-file-upload {
     background-color: var(--button-color);
     color: var(--button-text-color);
@@ -107,7 +141,6 @@ canvas {
     cursor: pointer;
 }
 
-/* Save Image Button */
 #saveImageButton {
     background-color: var(--button-color);
     color: var(--button-text-color);
@@ -116,65 +149,40 @@ canvas {
     cursor: pointer;
 }
 
-/* Color Picker */
 .color-picker {
     display: flex;
     background-color: gold;
     margin-bottom: 10px;
 }
 
-/* Button Row */
-.button-row {
+/* .button-row {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-}
+} */
 
-/* Tools Input & Buttons */
 .tools input,
 .tools button {
     margin: 0 5px;
 }
 
-/* Buttons */
-button {
-    background-color: var(--button-color);
-    color: var(--button-text-color);
-    font-style: bold;
-    font-size: 30px;
-}
 
-/* Hovers */
-button:hover,
-.custom-file-upload:hover,
-input[type="color"]:hover,
-input[type="range"]:hover {
-    opacity: 0.8;
-    cursor: pointer;
-    color: rgb(0, 255, 13);
-}
 
-button:hover {
-    background-color: rgb(61, 61, 61);
-}
-
-.parent-container {
-    display: flex;
-    flex-direction: row; /* Place buttons and canvas in a row */
-    height: 100vh;
-}
-
-.button-column {
+.canvas-and-sliders {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
+    height: 100%;
+    width: auto;
+
 }
 
-.button-column button {
-    margin-bottom: 5px;
-}
 
-/* This is the key part: It tells the canvas to take up the remaining space */
 .container {
-    flex-grow: 1; 
     border-radius: 20px;
+    margin-bottom: 10px; 
+    flex-grow: 1; 
+    width: 100%;
+    height: 100%;
 } 
+
