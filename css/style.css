@@ -7,7 +7,6 @@ body {
     background-attachment: fixed;
     font-family: 'Roboto', sans-serif;
 
-    /* Basic layout */
     margin: 0;
     padding: 0;
     min-height: 100vh;
@@ -16,7 +15,6 @@ body {
     justify-content: center;
 }
 
-/* Cursors */
 .drawingCursor {
     cursor: url('../cursors/pencil.png'), auto;
 }
@@ -25,13 +23,11 @@ body {
     cursor: url('../cursors/eraser.png'), auto;
 }
 
-/* Variables */
 :root {
     --button-color: rgb(25, 25, 25);
     --button-text-color: rgb(211, 116, 255);
 }
 
-/* Buttons */
 button {
     background-color: var(--button-color);
     color: var(--button-text-color);
@@ -52,7 +48,6 @@ button:hover {
     background-color: rgb(61, 61, 61);
 }
 
-/* Specific button styles */
 #floodFillButton.active {
     background-color: lightblue;
 }
@@ -62,7 +57,6 @@ button:hover {
     color: rgb(164, 255, 154);
 }
 
-/* Layout containers */
 .parent-container {
     display: flex;
     flex-direction: row;
@@ -72,9 +66,19 @@ button:hover {
 .button-column {
     display: flex;
     flex-direction: column;
-    max-height: 600px; /* Use px for pixel values */
+    max-height: 600px;
     margin-bottom: 5px;
     overflow-y: auto; 
+}
+.tools-column {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.color-picker-group{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .tools {
@@ -84,13 +88,17 @@ button:hover {
     margin-right: 10px;
 }
 
-.tools-column {
-    display: flex;
-    flex-direction: column;
+
+
+.opacity {
+    width: 200px;
+    height: 20px;
 }
 
-.tools-column input[type="color"] {
-    margin-bottom: 10px;
+
+
+.tools-column input[type="range"] {
+    width: 60%;
 }
 
 .customUploadButton {
@@ -99,19 +107,16 @@ button:hover {
     align-items: center;
 }
 
-/* Canvas */
 canvas {
     border-radius: 20px;
 }
 
-/* Canvas and sliders container */
 .canvas-and-sliders {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
 }
 
-/* Container for canvas */
 .container {
     border-radius: 20px;
     margin: 0;
@@ -121,7 +126,6 @@ canvas {
     height: 100%;
 }
 
-/* File upload button */
 .custom-file-upload {
     background-color: var(--button-color);
     color: var(--button-text-color);
@@ -129,7 +133,6 @@ canvas {
     cursor: pointer;
 }
 
-/* Save image button */
 #saveImageButton {
     background-color: var(--button-color);
     color: var(--button-text-color);
@@ -138,20 +141,17 @@ canvas {
     cursor: pointer;
 }
 
-/* Color picker */
 .color-picker {
     display: flex;
     background-color: gold;
     margin-bottom: 10px;
 }
 
-/* Tools input and button spacing */
 .tools input,
 .tools button {
     margin: 0 5px;
 }
 
-/* Range input styles */
 input[type="range"] {
     width: 50%;
     -webkit-appearance: none;
@@ -189,7 +189,6 @@ input[type="range"]::-moz-range-thumb {
     border-radius: 50%;
 }
 
-/* Cursor panel */
 .cursor-panel {
     position: absolute;
     top: 50px;
@@ -232,4 +231,8 @@ input[type="range"]::-moz-range-thumb {
     background-color: black;
     color:bisque;
     border-radius: 2.5px;
+}
+
+.input-value {
+    color: red;
 }
