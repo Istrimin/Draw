@@ -1,4 +1,4 @@
-vkBridge.send('VKWebAppInit');
+// vkBridge.send('VKWebAppInit');
 
 // ---------- Canvas and Context ----------
 const canvas = document.getElementById('drawingCanvas');
@@ -20,9 +20,75 @@ const imageInput = document.getElementById('imageInput');
 const customUploadButton = document.getElementById('customUploadButton');
 const symmetryButton = document.getElementById('symmetry');
 
-  const thickenLinesBtn = document.getElementById('thickenLinesBtn');
-// const floodFillButton = document.getElementById('floodFillButton');
-// let isFloodFillActive = false;
+// ... (your existing code)
+
+// Create the color picker circle element
+const colorPickerCircle = document.createElement('div');
+colorPickerCircle.id = 'colorPickerCircle';
+colorPickerCircle.style.width = '30px'; // Adjust size as needed
+colorPickerCircle.style.height = '30px';
+colorPickerCircle.style.borderRadius = '50%';
+colorPickerCircle.style.border = '1px solid black';
+colorPickerCircle.style.position = 'relative'; // To position the color dots inside
+colorPickerCircle.style.cursor = 'pointer';
+document.querySelector('.tools-column').appendChild(colorPickerCircle);
+
+const usedColors = []; // Array to store used colors
+
+// Function to add a color dot to the circle
+function addColorDot(color) {
+  const colorDot = document.createElement('div');
+  colorDot.style.width = '10px'; // Adjust dot size as needed
+  colorDot.style.height = '10px';
+  colorDot.style.borderRadius = '50%';
+  colorDot.style.backgroundColor = color;
+  colorDot.style.position = 'absolute';
+  // Calculate random position within the circle
+  const x = Math.floor(Math.random() * 20); // Adjust range as needed
+  const y = Math.floor(Math.random() * 20);
+  colorDot.style.left = x + 'px';
+  colorDot.style.top = y + 'px';
+  colorPickerCircle.appendChild(colorDot);
+}
+
+// Event listener for color input change
+colorPicker.addEventListener('change', () => {
+  const selectedColor = colorPicker.value;
+  if (!usedColors.includes(selectedColor)) {
+    usedColors.push(selectedColor);
+    addColorDot(selectedColor);
+  }
+});
+
+// Event listener for clicking the color picker circle
+colorPickerCircle.addEventListener('click', () => {
+  // Create a list to display used colors
+  const colorList = document.createElement('ul');
+  colorList.style.position = 'absolute';
+  colorList.style.top = '100%'; // Position below the circle
+  colorList.style.left = '0';
+  colorList.style.listStyle = 'none';
+  colorList.style.padding = '0';
+  colorList.style.margin = '0';
+  colorList.style.backgroundColor = 'white';
+  colorList.style.border = '1px solid #ccc';
+
+  usedColors.forEach(color => {
+    const listItem = document.createElement('li');
+    listItem.style.padding = '5px';
+    listItem.style.backgroundColor = color;
+    listItem.style.cursor = 'pointer';
+    // Add event listener to set the color input when a color is clicked
+    listItem.addEventListener('click', () => {
+      colorPicker.value = color;
+      // You might want to hide the colorList here
+    });
+    colorList.appendChild(listItem);
+  });
+
+  // Append the list to the circle or a suitable parent
+  colorPickerCircle.appendChild(colorList);
+});
 
 
 
@@ -356,27 +422,27 @@ opacityInput.parentNode.insertBefore(opacityValue, opacityInput.nextSibling);
 
 // ... (your existing code) ...
 
-function thickenLines() {
-  alert("Кнопка утолщения линий нажата!"); 
-}
+// function thickenLines() {
+//   alert("Кнопка утолщения линий нажата!"); 
+// }
 
-  // if (history.length > 0) {
-  //   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  //   const originalImageData = ctx.createImageData(canvas.width, canvas.height);
-  //   originalImageData.data.set(imageData.data); 
+//   if (history.length > 0) {
+//     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+//     const originalImageData = ctx.createImageData(canvas.width, canvas.height);
+//     originalImageData.data.set(imageData.data); 
 
-  //   // Increase line width (you can adjust the increment value)
-  //   let newBrushSize = parseInt(brushSize.value) + 1; 
-  //   brushSize.value = newBrushSize; 
+//     // Increase line width (you can adjust the increment value)
+//     let newBrushSize = parseInt(brushSize.value) + 1; 
+//     brushSize.value = newBrushSize; 
 
-  //   // Redraw all strokes with the thicker brush size
-  //   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  //   history.forEach(state => {
-  //     ctx.putImageData(state, 0, 0);
-  //   }); 
-  //   redrawCanvas(); // Call redrawCanvas AFTER applying all states
+//     // Redraw all strokes with the thicker brush size
+//     ctx.clearRect(0, 0, canvas.width, canvas.height);
+//     history.forEach(state => {
+//       ctx.putImageData(state, 0, 0);
+//     }); 
+//     redrawCanvas(); // Call redrawCanvas AFTER applying all states
 
-  //   // Save the thickened state as a new state in history
-  //   history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
-  //   redoHistory = []; 
-  // }
+//     // Save the thickened state as a new state in history
+//     history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+//     redoHistory = []; 
+//   }

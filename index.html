@@ -67,13 +67,23 @@
     </div>
 
     <script>
-//   const thickenLinesBtn = document.getElementById('thickenLinesBtn');
 
-//   // Add an event listener for a click event
-//   thickenLinesBtn.addEventListener('click', function() {
-//     alert("The 'Утолщить все линии' button was clicked!");
-//   });
-        // ... (your existing JavaScript code)
+vkBridge.send('VKWebAppInit');
+
+
+  const thickenLinesBtn = document.getElementById('thickenLinesBtn');
+
+
+  // Add an event listener for a click event
+  thickenLinesBtn.addEventListener('click', thickenLines);
+
+  // Define a function to handle the click event
+  function thickenLines() {
+    alert("test!");
+  };
+
+
+
     </script>
 </body>
 </html>
