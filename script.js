@@ -19,8 +19,8 @@ const saveImageBtn = document.getElementById('saveImageBtn');
 const imageInput = document.getElementById('imageInput');
 const customUploadButton = document.getElementById('customUploadButton');
 const symmetryButton = document.getElementById('symmetry');
-const thickenLinesBtn = document.getElementById('thickenLinesBtn'); // Add the new button
 
+  const thickenLinesBtn = document.getElementById('thickenLinesBtn');
 // const floodFillButton = document.getElementById('floodFillButton');
 // let isFloodFillActive = false;
 
@@ -105,8 +105,8 @@ opacityInput.addEventListener('input', () => {
 });
 
 
-thickenLinesBtn.addEventListener('click', thickenLines);
 
+thickenLinesBtn.addEventListener('click', thickenLines); 
 
 
 // ---------- Functions ----------
@@ -354,26 +354,29 @@ opacityValue.classList.add('input-value');
 brushSizeInput.parentNode.insertBefore(brushSizeValue, brushSizeInput.nextSibling);
 opacityInput.parentNode.insertBefore(opacityValue, opacityInput.nextSibling);
 
+// ... (your existing code) ...
 
 function thickenLines() {
-  if (history.length > 0) {
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    const originalImageData = ctx.createImageData(canvas.width, canvas.height);
-    originalImageData.data.set(imageData.data); // Store the original state
-
-    // Increase line width (you can adjust the increment value)
-    let newBrushSize = parseInt(brushSize.value) + 1; 
-    brushSize.value = newBrushSize; // Update the UI slider
-
-    // Redraw all strokes with the thicker brush size
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    history.forEach(state => {
-      ctx.putImageData(state, 0, 0);
-      redrawCanvas(); 
-    });
-
-    // Save the thickened state as a new state in history
-    history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
-    redoHistory = []; // Clear redo history
-  }
+  alert("Кнопка утолщения линий нажата!"); 
 }
+
+  // if (history.length > 0) {
+  //   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  //   const originalImageData = ctx.createImageData(canvas.width, canvas.height);
+  //   originalImageData.data.set(imageData.data); 
+
+  //   // Increase line width (you can adjust the increment value)
+  //   let newBrushSize = parseInt(brushSize.value) + 1; 
+  //   brushSize.value = newBrushSize; 
+
+  //   // Redraw all strokes with the thicker brush size
+  //   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  //   history.forEach(state => {
+  //     ctx.putImageData(state, 0, 0);
+  //   }); 
+  //   redrawCanvas(); // Call redrawCanvas AFTER applying all states
+
+  //   // Save the thickened state as a new state in history
+  //   history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+  //   redoHistory = []; 
+  // }
