@@ -10,9 +10,7 @@
 </head>
 <body>
     <div class="parent-container"> 
-        <div class="container"> 
-            <canvas id="drawingCanvas"></canvas>
-        </div>
+
         <div class="tools">
             <div class="tools-row">
                 <!-- Color Pickers -->
@@ -31,7 +29,7 @@
                 <input type="range" id="opacity" min="1" max="100" value="100">
             </div>
 
-            <div class="button-row"> 
+            <div class="button-column"> 
                 <!-- Image Upload -->
                 <label for="imageInput">
                     <button id="customUploadButton" title="Загрузить изображение">🌺 </button>
@@ -52,7 +50,11 @@
                 <button id="inviteFriends" title="Пригласить друзей"> 👥</button> 
                 <button id="addToFavorites" title="Добавить в избранное">📌 </button>                 
                 <button id="settings" title="Настройки">⚙️</button>
+
             </div>
+        </div> 
+        <div class="container"> 
+            <canvas id="drawingCanvas"></canvas>
         </div>
     </div>
 
