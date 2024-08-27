@@ -26,7 +26,7 @@ const symmetryButton = document.getElementById('symmetry');
 
 
 // ---------- Drawing State ----------
-let symmetry = false;
+let symmetry = true;
 let isDrawing = false;
 let lastX = 0;
 let lastY = 0;
