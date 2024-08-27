@@ -1,4 +1,9 @@
-// vkBridge.send('VKWebAppInit');
+// В начале или в конце вашего основного файла script.js
+document.addEventListener('DOMContentLoaded', function() {
+    // Инициализация логики курсоров
+    window.initCursors();
+});
+
 
 // ---------- Canvas and Context ----------
 const canvas = document.getElementById('drawingCanvas');
@@ -172,7 +177,10 @@ opacityInput.addEventListener('input', () => {
 
 
 
-thickenLinesBtn.addEventListener('click', thickenLines); 
+// thickenLinesBtn.addEventListener('click', thickenLines); 
+
+
+
 
 
 // ---------- Functions ----------
