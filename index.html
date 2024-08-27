@@ -7,25 +7,50 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="script.js" defer></script> 
+    <script src="script.js" defer></script>
+    <style>
+        .cursor-panel {
+            position: absolute;
+            top: 50px;
+            right: 10px;
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .cursor-item {
+            padding: 5px;
+            margin: 5px;
+            border: 1px solid #eee;
+            cursor: pointer;
+            display: inline-block;
+        }
+        .cursor-item:hover {
+            background-color: #f0f0f0;
+        }
+        .cursor-preview {
+            width: 32px;
+            height: 32px;
+        }
+    </style>
 </head>
 <body>
-    <div class="parent-container"> 
+    <div class="parent-container">
         <div class="container">
-            <div class="button-column"> 
+            <div class="button-column">
                 <label for="imageInput">
                     <button id="customUploadButton" title="Загрузить изображение">🌺</button>
                 </label>
-                <input type="file" id="imageInput" accept="image/*" style="display: none;"> 
-
+                <input type="file" id="imageInput" accept="image/*" style="display: none;">
                 <button id="saveImageBtn" title="Сохранить изображение">🎬 </button>
                 <button id="eraser" title="Ластик">💩</button>
                 <button id="undo" title="Отменить">⟲  </button>
                 <button id="redo" title="Повторить">⟳ </button>
                 <button id="clear" title="Очистить">💀</button>                
-                <button id="symmetry" title="Симметрия">🦋</button> 
+                <button id="symmetry" title="Симметрия">🦋</button>
                 <button id="thickenLinesBtn" title="Утолщить все линии">!</button>
-
                 <div class="tools">
                     <div class="tools-column">
                         <input type="color" id="backgroundPicker" value="#ffffff" title="Цвет фона">
@@ -33,67 +58,74 @@
                     </div>
                 </div>
                 <button id="changeCursorBtn" title="Сменить курсор">🎨</button>
-                <ul id="cursorList" style="display:none;">
-                </ul>
-                <button id="inviteFriends" title="Пригласить друзей"> 👥</button> 
-                <button id="addToFavorites" title="Добавить в избранное">📌</button>                 
+                <button id="inviteFriends" title="Пригласить друзей"> 👥</button>
+                <button id="addToFavorites" title="Добавить в избранное">📌</button>                
                 <button id="settings" title="Настройки">⚙️</button>
             </div>
         </div>
-
-        <div class="canvas-and-sliders"> 
-            <div class="container"> 
+        <div class="canvas-and-sliders">
+            <div class="container">
                 <canvas id="drawingCanvas" width="800" height="600"></canvas>
             </div>
-
             <div class="tools-column">
                 <label for="opacity" title="Прозрачность">👻 </label>
                 <input type="range" id="opacity" min="1" max="100" value="100">
             </div>
-
-            <div class="tools-column"> 
+            <div class="tools-column">
                 <label for="brushSize" title="Размер кисти">◯ </label>
                 <input type="range" id="brushSize" min="1" max="100" value="1">
             </div>
         </div>
     </div>
 
+    <!-- Добавляем вкладку с курсорами -->
+    <div id="cursorPanel" class="cursor-panel" style="display: none;">
+        <h3>Выберите курсор</h3>
+        <div id="cursorList">
+            <!-- Здесь будут отображаться доступные курсоры -->
+        </div>
+    </div>
+
     <script>
-      vkBridge.send('VKWebAppInit');
-      // Функция для отображения списка курсоров
-      function showCursorList() {
-        $('#cursorList').toggle(); 
-      }
+        vkBridge.send('VKWebAppInit');
 
-      // Обработчик клика по кнопке "Сменить курсор"
-      $('#changeCursorBtn').click(function() {
-        showCursorList();
-      });
-
-      // Загрузка списка курсоров из папки "cursors"
-      $.ajax({
-        url: 'cursors', // Путь к папке с курсорами (относительно корня проекта)
-        success: function(data) {
-          // Парсинг ответа сервера (предполагается, что сервер возвращает список файлов)
-          var cursors = data.split('\n'); 
-          for (var i = 0; i < cursors.length; i++) {
-            var cursorFile = cursors[i];
-            if (cursorFile) { // Проверка на пустые строки
-              // Создание элемента списка для каждого курсора
-              var listItem = $('<li><a href="#">' + cursorFile + '</a></li>');
-              // Добавление обработчика клика для каждого элемента списка
-              listItem.click(function(e) {
-                e.preventDefault(); 
-                var cursorUrl = 'cursors/' + $(this).text(); 
-                canvas.style.cursor = 'url(' + cursorUrl + '), auto'; 
-                $('#cursorList').hide(); 
-              });
-              // Добавление элемента списка в список курсоров
-              $('#cursorList').append(listItem);
+        // Добавляем обработчик для кнопки смены курсора
+        document.getElementById('changeCursorBtn').addEventListener('click', function() {
+            const cursorPanel = document.getElementById('cursorPanel');
+            if (cursorPanel.style.display === 'none') {
+                cursorPanel.style.display = 'block';
+                loadCursors();
+            } else {
+                cursorPanel.style.display = 'none';
             }
-          }
+        });
+
+        // Функция для загрузки курсоров
+        function loadCursors() {
+            fetch('get-cursors.php')
+                .then(response => response.json())
+                .then(cursors => {
+                    const cursorList = document.getElementById('cursorList');
+                    cursorList.innerHTML = '';  // Очищаем список перед добавлением новых элементов
+                    
+                    cursors.forEach(cursor => {
+                        const cursorItem = document.createElement('div');
+                        cursorItem.className = 'cursor-item';
+                        
+                        const cursorPreview = document.createElement('img');
+                        cursorPreview.src = `cursors/${cursor}`;
+                        cursorPreview.className = 'cursor-preview';
+                        cursorItem.appendChild(cursorPreview);
+
+                        cursorItem.addEventListener('click', function() {
+                            document.getElementById('drawingCanvas').style.cursor = `url('cursors/${cursor}'), auto`;
+                            document.getElementById('cursorPanel').style.display = 'none';
+                        });
+                        cursorList.appendChild(cursorItem);
+                    });
+                })
+                .catch(error => console.error('Error loading cursors:', error));
         }
-      });
     </script>
 </body>
 </html>
