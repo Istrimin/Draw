@@ -22,7 +22,7 @@ const clearBtn = document.getElementById('clear');
 const inviteFriendsBtn = document.getElementById('inviteFriends');
 const saveImageBtn = document.getElementById('saveImageBtn');
 const imageInput = document.getElementById('imageInput');
-const customUploadButton = document.getElementById('customUploadButton');
+const UploadButton = document.getElementById('UploadButton');
 const symmetryButton = document.getElementById('symmetry');
 const fillModeBtn = document.getElementById('fillModeBtn'); // Assuming you have a button with this ID
 
@@ -63,7 +63,7 @@ opacityValue.textContent = opacityInput.value; // Update the display for opacity
 inviteFriendsBtn.addEventListener('click', inviteFriends);
 
 // Image Upload
-customUploadButton.addEventListener('click', () => imageInput.click());
+UploadButton.addEventListener('click', () => imageInput.click());
 imageInput.addEventListener('change', handleImageUpload);
 
 // Drawing Tools

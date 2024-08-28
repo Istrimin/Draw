@@ -10,7 +10,10 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="cursors.js"></script>
     <!-- <script src ="canvas.js"></script> -->
+    <script src="tools.js" defer></script>
     <script src="script.js" defer></script>
+
+
 </head>
 
 <body>
@@ -18,7 +21,7 @@
         <div class="container">
             <div class="button-column" style="overflow-y: auto;">
                 <label for="imageInput">
-                    <button id="customUploadButton" title="Загрузить изображение">🌺</button>
+                    <button id="UploadButton" title="Загрузить изображение">🌺</button>
                 </label>
                 <input type="file" id="imageInput" accept="image/*" style="display: none;">
                 <button id="saveImageBtn" title="Сохранить изображение">🎬 </button>
@@ -26,8 +29,9 @@
                 <button id="undo" title="Отменить">⟲ </button>
                 <button id="redo" title="Повторить">⟳ </button>
                 <button id="clear" title="Очистить">💀</button>
-                <button id="symmetry" title="Симметрия">🦋</button>
+                <button id="symmetry" title="Симметрия" class="active">🦋</button>
                 <button id="fillModeBtn" title="Заливка">🌊</button> 
+
                 <button id="floodFillBtn" title="Залить цветом">✨</button> 
                 <button id="eyedropperBtn" title="Пипетка">💧</button>
                 <div class="tools">
@@ -68,34 +72,7 @@
     <script>
         vkBridge.send('VKWebAppInit');
 
-        // Пипетка
-        const canvas = document.getElementById('drawingCanvas');
-        const ctx = canvas.getContext('2d');
-        const colorPicker = document.getElementById('colorPicker');
-        const eyedropperBtn = document.getElementById('eyedropperBtn');
 
-        let isEyedropperActive = false;
-
-        eyedropperBtn.addEventListener('click', () => {
-            isEyedropperActive = !isEyedropperActive;
-            document.body.style.cursor = isEyedropperActive ? 'crosshair' : 'default';
-        });
-
-        canvas.addEventListener('click', (e) => {
-            if (isEyedropperActive) {
-                const x = e.offsetX;
-                const y = e.offsetY;
-                const pixelData = ctx.getImageData(x, y, 1, 1).data;
-                const hexColor = rgbToHex(pixelData[0], pixelData[1], pixelData[2]);
-                colorPicker.value = hexColor;
-                isEyedropperActive = false;
-                document.body.style.cursor = 'default';
-            }
-        });
-
-        function rgbToHex(r, g, b) {
-            return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
-        }
     </script>
 </body>
 
