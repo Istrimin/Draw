@@ -65,12 +65,12 @@
     </div>
     <script>
         vkBridge.send('VKWebAppInit');
-        vkBridge.subscribe((e) => {
-            if (e.detail.type === 'VKWebAppInitResult') {
-                // Инициализация VK Bridge завершена, теперь можно инициализировать ваше приложение
-                initializeApp();
-            }
-        });
+        // vkBridge.subscribe((e) => {
+        //     if (e.detail.type === 'VKWebAppInitResult') {
+        //         // Инициализация VK Bridge завершена, теперь можно инициализировать ваше приложение
+        //         initializeApp();
+        //     }
+        // });
         // Вывод сообщения о кнопках клавиатуры
         // alert("Кнопки клавиатуры Z и X используются для отмены и повтора действий соответственно.");
 
