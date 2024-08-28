@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Весь ваш JavaScript-код здесь
 
 
+function initializeApp() {
+    // Весь ваш код инициализации здесь
 
 // ---------- Canvas and Context ----------
 const canvas = document.getElementById('drawingCanvas');
@@ -432,5 +434,5 @@ function colorMatch(a, b, tolerance) {
 document.addEventListener('DOMContentLoaded', function() {
     window.initCursors();
 });
-
+}
 });
