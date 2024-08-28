@@ -1,3 +1,8 @@
+document.addEventListener('DOMContentLoaded', function() {
+    // Весь ваш JavaScript-код здесь
+
+
+
 // ---------- Canvas and Context ----------
 const canvas = document.getElementById('drawingCanvas');
 const ctx = canvas.getContext('2d');
@@ -426,4 +431,6 @@ function colorMatch(a, b, tolerance) {
 // Initialize cursors after DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     window.initCursors();
+});
+
 });
