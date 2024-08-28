@@ -27,9 +27,8 @@
                 <button id="redo" title="Повторить">⟳ </button>
                 <button id="clear" title="Очистить">💀</button>
                 <button id="symmetry" title="Симметрия">🦋</button>
-                <button id="fillModeBtn" title="Заливка">✨</button>
-                <!-- <button id="thickenLinesBtn" title="Утолщить все линии">!</button> -->
-                <div class="tools">
+                <button id="fillModeBtn" title="Заливка">🌊</button> 
+                <button id="floodFillBtn" title="Залить цветом">✨</button> <div class="tools">
                     <div class="color-picker-group">
                         <input type="color" id="backgroundPicker" value="#ffffff" title="Цвет фона">
                         <input type="color" id="colorPicker" value="#000000" title="Цвет кисти">
@@ -67,7 +66,8 @@
     <script>
         vkBridge.send('VKWebAppInit');
 
-
+        // Вывод сообщения о кнопках клавиатуры
+        // alert("Кнопки клавиатуры Z и X используются для отмены и повтора действий соответственно.");
 
     </script>
 </body>

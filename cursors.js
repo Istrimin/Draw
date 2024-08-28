@@ -3,7 +3,7 @@
 // Список доступных курсоров
 const cursors = [
     { name: 'Карандаш', file: 'pencil.png' },
-    { name: 'Кисть', file: 'brush.png' },
+    // { name: 'Кисть', file: 'brush.png' },
     { name: 'Ластик', file: 'eraser.png' },
     // Добавьте другие курсоры по необходимости
 ];
