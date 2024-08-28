@@ -28,7 +28,9 @@
                 <button id="clear" title="Очистить">💀</button>
                 <button id="symmetry" title="Симметрия">🦋</button>
                 <button id="fillModeBtn" title="Заливка">🌊</button> 
-                <button id="floodFillBtn" title="Залить цветом">✨</button> <div class="tools">
+                <button id="floodFillBtn" title="Залить цветом">✨</button> 
+                <button id="eyedropperBtn" title="Пипетка">💧</button>
+                <div class="tools">
                     <div class="color-picker-group">
                         <input type="color" id="backgroundPicker" value="#ffffff" title="Цвет фона">
                         <input type="color" id="colorPicker" value="#000000" title="Цвет кисти">
@@ -65,15 +67,35 @@
     </div>
     <script>
         vkBridge.send('VKWebAppInit');
-        // vkBridge.subscribe((e) => {
-        //     if (e.detail.type === 'VKWebAppInitResult') {
-        //         // Инициализация VK Bridge завершена, теперь можно инициализировать ваше приложение
-        //         initializeApp();
-        //     }
-        // });
-        // Вывод сообщения о кнопках клавиатуры
-        // alert("Кнопки клавиатуры Z и X используются для отмены и повтора действий соответственно.");
 
+        // Пипетка
+        const canvas = document.getElementById('drawingCanvas');
+        const ctx = canvas.getContext('2d');
+        const colorPicker = document.getElementById('colorPicker');
+        const eyedropperBtn = document.getElementById('eyedropperBtn');
+
+        let isEyedropperActive = false;
+
+        eyedropperBtn.addEventListener('click', () => {
+            isEyedropperActive = !isEyedropperActive;
+            document.body.style.cursor = isEyedropperActive ? 'crosshair' : 'default';
+        });
+
+        canvas.addEventListener('click', (e) => {
+            if (isEyedropperActive) {
+                const x = e.offsetX;
+                const y = e.offsetY;
+                const pixelData = ctx.getImageData(x, y, 1, 1).data;
+                const hexColor = rgbToHex(pixelData[0], pixelData[1], pixelData[2]);
+                colorPicker.value = hexColor;
+                isEyedropperActive = false;
+                document.body.style.cursor = 'default';
+            }
+        });
+
+        function rgbToHex(r, g, b) {
+            return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+        }
     </script>
 </body>
 
