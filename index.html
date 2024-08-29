@@ -8,18 +8,22 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
     <script src="cursors.js"></script>
     <!-- <script src ="canvas.js"></script> -->
-    <script src="tools.js" defer></script>
     <script src="script.js" defer></script>
-
-
+    <script src="tools.js" defer></script>
+    
+    
 </head>
 
 <body>
     <div class="parent-container">
         <div class="container">
             <div class="button-column" style="overflow-y: auto;">
+<button id="myBtn">✉️</button>
+<p id="message" style="display:none;">Это сообщение!</p>
+
                 <label for="imageInput">
                     <button id="UploadButton" title="Загрузить изображение">🌺</button>
                 </label>
@@ -31,7 +35,7 @@
                 <button id="clear" title="Очистить">💀</button>
                 <button id="symmetry" title="Симметрия" class="active">🦋</button>
                 <button id="fillModeBtn" title="Заливка">🌊</button> 
-
+                
                 <button id="floodFillBtn" title="Залить цветом">✨</button> 
                 <button id="eyedropperBtn" title="Пипетка">💧</button>
                 <div class="tools">
@@ -71,8 +75,10 @@
     </div>
     <script>
         vkBridge.send('VKWebAppInit');
-
-
+        
+        document.getElementById("myBtn").addEventListener("click", function() {
+  document.getElementById("message").style.display = "block";
+});
     </script>
 </body>
 

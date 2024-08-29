@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+// document.addEventListener('DOMContentLoaded', function() {
     // Весь ваш JavaScript-код здесь
 
 
@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', function() {
 // ---------- Canvas and Context ----------
 const canvas = document.getElementById('drawingCanvas');
 const ctx = canvas.getContext('2d');
+
+// from tools import *
 ctx.imageSmoothingEnabled = false;
 
 // ---------- UI Elements ----------
@@ -433,6 +435,15 @@ function colorMatch(a, b, tolerance) {
 // Initialize cursors after DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     window.initCursors();
-});
+    // window.initEyedropper();
+}
 
-});
+
+
+);
+
+
+
+
+
+// });
