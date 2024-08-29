@@ -238,3 +238,13 @@ input[type="range"]::-moz-range-thumb {
 .input-value {
     color: red;
 }
+
+#message-container {
+  width: 100%; /* Take up full screen width */
+  text-align: center; /* Center the text */
+}
+
+#message {
+  font-size: 10vw; /* Start with a large font size (10% of viewport width) */
+  white-space: nowrap; /* Prevent text from wrapping */
+}
