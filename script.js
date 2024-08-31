@@ -8,6 +8,7 @@
 // ---------- Canvas and Context ----------
 const canvas = document.getElementById('drawingCanvas');
 const ctx = canvas.getContext('2d');
+ctx.willReadFrequently = true; 
 
 // from tools import *
 ctx.imageSmoothingEnabled = false;
@@ -166,7 +167,7 @@ function draw(e) {
 
     ctx.lineWidth = brushSizeInput.value; // Use brushSizeInput here
     ctx.lineCap = 'round';
-    ctx.strokeStyle = isEraser ? backgroundPicker.value : colorPicker.value;
+    ctx.strokeStyle = colorPicker.value;
     ctx.globalAlpha = opacityInput.value / 100; // Use opacityInput here
 
     ctx.beginPath();
