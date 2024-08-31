@@ -14,7 +14,9 @@ ctx.willReadFrequently = true;
 ctx.imageSmoothingEnabled = false;
 
 // ---------- UI Elements ----------
-const backgroundPicker = document.getElementById('backgroundPicker');
+const 
+backgroundPicker = document.getElementById('
+backgroundPicker');
 const colorPicker = document.getElementById('colorPicker');
 const brushSizeInput = document.getElementById('brushSize'); // Use more descriptive name
 const opacityInput = document.getElementById('opacity'); // Use more descriptive name
@@ -48,7 +50,6 @@ let lastX = 0;
 let lastY = 0;
 let history = [];
 let redoHistory = [];
-let isEraser = false;
 let uploadedImage = null;
 let clearedCanvasState = null; // Variable to store the cleared state
 let isFillMode = false;
@@ -62,8 +63,6 @@ opacityValue.textContent = opacityInput.value; // Update the display for opacity
 
 // ---------- Event Listeners ----------
 
-// VK API Interactions
-inviteFriendsBtn.addEventListener('click', inviteFriends);
 
 // Image Upload
 UploadButton.addEventListener('click', () => imageInput.click());
@@ -103,6 +102,7 @@ redoBtn.addEventListener('click', redo);
 clearBtn.addEventListener('click', clearCanvas);
 
 // Background and Color
+
 backgroundPicker.addEventListener('input', (event) => {
     canvas.style.backgroundColor = event.target.value;
     redrawCanvas();
@@ -195,7 +195,8 @@ function stopDrawing() {
 
 // Canvas Manipulation
 function redrawCanvas() {
-    ctx.fillStyle = backgroundPicker.value;
+    ctx.fillStyle = 
+backgroundPicker.value;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     if (uploadedImage) {
@@ -207,7 +208,8 @@ function redrawCanvas() {
 
 function clearCanvas() {
     clearedCanvasState = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = backgroundPicker.value;
+    ctx.fillStyle = 
+backgroundPicker.value;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     history.push(clearedCanvasState); 
     redoHistory = []; 
@@ -227,16 +229,6 @@ function toggleSymmetry() {
     symmetryButton.classList.toggle('active', symmetry);
 }
 
-function toggleEraser() {
-    isEraser = !isEraser;
-    eraserBtn.textContent = isEraser ? '🖌️' : '💩';
-
-    if (isEraser) {
-        setEraserCursor();
-    } else {
-        setDrawingCursor();
-    }
-}
 
 function setDrawingCursor() {
     canvas.classList.add('drawingCursor');
