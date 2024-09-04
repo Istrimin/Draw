@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/index.css"> 
+    <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <style>
+        /* Add this CSS to your index.css file or within <style> tags in your HTML */
+        .column-container {
+            display: flex;
+            flex-direction: column; /* Arrange items vertically */
+            align-items: center; /* Center items horizontally */
+        }
+    </style>
+</head>
+<body>
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script> 
+    <div class="header-container">
+        <div id="python-output" class="python-output"></div>
+        <div class="python-code">
+            <script type="py">
+from pyscript import display
+from datetime import datetime
+import asyncio
+
+async def update_time():
+  while True:
+    now = datetime.now()
+    display(now.strftime("%H:%M:%S"), target="python-output", append=False)
+    await asyncio.sleep(1)
+    
+asyncio.ensure_future(update_time())
+            </script>
+        </div>
+        <div class="column-container"> <div class="image-column"></div>
+            <img src="images/dream3.png" width="200" alt="Рисуйка">
+
+        </div>
+
+        <h2>Привет художник!</h2> 
+        <a href="main.html" target="_self" title="Рисовать">🖍️</a> 
+
+
+    </div>
+
+
+
+    <script>
+        vkBridge.send('VKWebAppInit');
+
+  document.addEventListener('contextmenu', event => event.preventDefault());
+    </script>
+</body>
+</html>

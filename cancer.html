@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Draw</title>
+	<link rel="stylesheet" href="css/cancer.css">
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.4.5/jscolor.min.js"></script>
+	<script src="cursors.js" defer></script>
+	<script src="cancer.js" defer></script>
+	<script type="module" src="hotkey.js" defer></script>
+	<script type="module" src="settings.js" defer></script>
+	<script type="module" src="helperFunction.js" defer></script>
+	<style>
+	
+	</style>
+</head>
+
+<body>
+	<div class="header-container">
+		<div id="time" class="time"></div>
+		<div id="startTime" class="time"></div>
+		<div id="elapsedTime" class="time"></div>
+	</div>
+	<div class="base-container">
+		<div class="sidebar">
+			<a href="index.html" target="_self" title="Выйти из команты" id="exitLink">🚪</a>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+			<div id="message-container" style="display: none;">
+				<p id="message"></p>
+			</div>
+			<input type="file" id="imageInput" accept="image/*" style="display: none;">
+			<button id="undo" title="Отменить (Z)">⟲</button>
+			<button id="redo" title="Повторить (X)">⟳</button>
+			<button id="symmetry" title="Симметрия (S)">🦋</button>
+			<button id="eyedropperBtn" title="Пипетка заливки (A)">💧</button>
+			<button id="changeCursorBtn" title="Сменить курсор">🎨</button>
+			<button id="clear" title="Очистить">💀</button>
+			<button id="saveImageBtn" title="Сохранить изображение">💾</button>
+		</div>
+		<div class="canvas-and-sliders">
+			<div class="canvas-container">
+
+				<div class="color-picker-group">
+					<input type="color" id="colorPicker" value="#000000" title="Цвет заливки (C)">
+					<input type="color" id="backgroundPicker" value="#eeaaff" title="Цвет фона (B)">
+					<!-- <div class="word-navigation"> -->
+					<button id="previousWord" title="Предыдущее слово">&lt;</button>
+					<p id="Quizz"></p>
+					<button id="nextWord" title="Следующее слово">&gt;</button>
+					<!-- </div> -->
+				</div>
+
+				<div class=" canv-container">
+					<canvas id="drawingCanvas" width="700" height="500" style=width:700px;height:500px>
+					</canvas>
+					<div id="cursorPanel" class="cursor-panel" style="display: none;">
+						<div id="cursorList"></div>
+					</div>
+				</div>
+			</div>
+			<div class="slider-group">
+				<div class="slider">
+					<div class="pressure-bar" id="pressureBar"></div>
+					<label for="brushSize" title="Размер кисти">🖌️</label>
+					<input type="range" id="brushSize" min="1" max="100" value="1">
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+// Внутри тега <script> в cancer.html
+
+// ... (остальной код)
+
+
+	</script>
+</body>
+
+</html>

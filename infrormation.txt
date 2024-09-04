@@ -1,3 +1,12 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 lib for 
+
+
+Отключает бред для планшета. когда не рисуются линии
+document.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+}, { passive: false });
+
+позволяет делать элементы в строку(по умолчанию все идут в колонку)
+            display: flex;

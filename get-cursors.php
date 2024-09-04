@@ -1,16 +1,23 @@
 <?php
-header('Content-Type: application/json');
-
+// Путь к папке с курсорами
 $cursorDir = 'cursors/';
-if (!is_dir($cursorDir)) {
-    echo json_encode(['error' => 'Cursor directory not found']);
-    exit;
+
+// Получение списка файлов в папке
+$cursorFiles = scandir($cursorDir);
+
+// Фильтрация списка, чтобы исключить "." и ".."
+$cursorFiles = array_diff($cursorFiles, array('.', '..'));
+
+// Формирование массива с информацией о курсорах
+$cursors = [];
+foreach ($cursorFiles as $filename) {
+  $cursors[] = [
+    'name' => pathinfo($filename, PATHINFO_FILENAME), // Имя курсора без расширения
+    'image' => $cursorDir . $filename // Путь к изображению курсора
+  ];
 }
 
-$cursors = array_diff(scandir($cursorDir), array('..', '.'));
-if (empty($cursors)) {
-    echo json_encode(['error' => 'No cursors found']);
-    exit;
-}
-
+// Отправка ответа в формате JSON
+header('Content-Type: application/json');
 echo json_encode($cursors);
+?>

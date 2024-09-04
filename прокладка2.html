@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Настоящий Художник</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.4.5/jscolor.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+    <script type="module" src="tools.js" defer></script>
+    <style>
+        .word-navigation {
+            display: flex;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .active-layer {
+            /* background-color: #ddd; */
+            color: #a6ff00;
+        }
+
+        .canv-container {
+            position: relative;
+            /* To contain absolutely positioned children */
+            width: 700px;
+            /* Width of the canvas */
+            height: 500px;
+            /* Height of the canvas */
+        }
+
+        .canv-container canvas {
+            position: absolute;
+            /* Position each canvas absolutely */
+            top: 0;
+            /* Align all canvases to the top */
+            left: 0;
+            /* Align all canvases to the left */
+            z-index: 1;
+            /* Default z-index */
+        }
+
+        /* #layer1 { z-index: 1; }
+#layer2 { z-index: 2; }
+#layer3 { z-index: 3; } */
+        /* added new */
+        .canvas-and-sliders {
+            display: flex;
+            /* Flexbox to arrange layer panel and canvases side by side */
+        }
+
+        .layer-panel {
+            /* display: flex;
+            flex-direction: column; */
+            /* This line makes the items stack vertically */
+            gap: 5px;
+            font-size: 5px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .layer-controls {
+            display: flex;
+            flex-direction: column;
+            font-size: 5px;
+        }
+
+        .layer-button {
+            cursor: pointer;
+            font-size: 5px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .layerButtons {
+            display: flex;
+            flex-direction: column;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .layer-button:hover {
+            background-color: rgb(255, 0, 0);
+            font-size: 5px;
+        }
+
+        .color-picker-group {
+            display: flex;
+            /* Горизонтальное выравнивание для элементов */
+            gap: 5px;
+            /* Пространство между элементами */
+        }
+
+        /* add tema */
+        .color-picker-group input[type="color"] {
+            appearance: none;
+            /* Убирает стандартный вид input */
+            -webkit-appearance: none;
+            /* Убирает стандартный вид input в Safari */
+            border: none;
+            /* Убираем рамку */
+            width: 10px;
+            /* Ширина круга */
+            height: 10px;
+            /* Высота круга */
+            border-radius: 50%;
+            /* Делаем круглый */
+            padding: 0;
+            cursor: pointer;
+            overflow: hidden;
+            /* Убираем любые выходящие части */
+        }
+
+        .color-picker-group input[type="color"]::-webkit-color-swatch-wrapper {
+            padding: 0;
+            /* Убирает внутренний отступ */
+        }
+
+        .color-picker-group input[type="color"]::-webkit-color-swatch {
+            border: none;
+            /* Убирает рамку */
+            border-radius: 50%;
+            /* Круглая форма */
+        }
+
+        .color-picker-and-word {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0;
+            /* gap: 100px;  */
+        }
+
+        .color-picker-and-word {
+            display: flex;
+            align-items: center;
+            /* Add this line */
+            margin-bottom: 0;
+            /* gap: 100px;  */
+        }
+
+        .word-navigation {
+            margin: 0;
+            /* Убираем стандартные отступы */
+            cursor: pointer;
+        }
+
+        .time-wrapper {
+            display: flex;
+            /* Используем flexbox для выравнивания в строку */
+            align-items: center;
+            /* Выравниваем элементы по вертикали */
+            gap: 10px;
+            /* Добавляем отступ между элементами времени */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="base-container">
+        <div class="sidebar">
+            <a href="index.html" target="_self" title="Выйти из команты" id="exitLink">🚪</a>
+            <button id="myBtn" title="Сообщение">✉️</button>
+            <div id="message-container" style="display: none;">
+                <p id="message"></p>
+            </div>
+            <input type="file" id="imageInput" accept="image/*" style="display: none;">
+            <button id="UploadButton" title="Загрузить изображение (U)">🌺</button>
+            <button id="saveImageBtn" title="Сохранить изображение">🎬</button>
+            <button id="changeCursorBtn" title="Сменить курсор">🎨</button>
+            <button id="undo" title="Отменить (Z)">⟲</button>
+            <button id="redo" title="Повторить (X)">⟳</button>
+            <button id="clear" title="Очистить">💀</button>
+            <button id="symmetry" title="Симметрия (S)">🦋</button>
+            <button id="fillModeBtn" title="Заливка (F)">🌊</button>
+            <button id="floodFillBtn" title="Залить цветом">✨</button>
+            <button id="eyedropperBtn" title="Пипетка заливки (A)">💧</button>
+            <button id="brushEyedropperBtn" title="Пипетка кисти (D)">🖌️</button>
+            <div id="cursorPanel" class="cursor-panel" style="display: none;">
+                <h3>Выберите курсор</h3>
+                <div id="cursorList"></div>
+            </div>
+            <button id="settings" title="Настройки">⚙️</button>
+        </div>
+        <div class="canvas-and-sliders">
+            <div class="layer-panel">
+                <div class="layer-controls">
+                    <button id="addLayerBtn">+</button>
+                    <button id="removeLayerBtn">-</button>
+                </div>
+                <div id="layerButtons"></div>
+            </div>
+            <div class="canvas-container">
+
+                <div class="color-picker-and-word">
+                    <div class="color-picker-group">
+                        <input type="color" id="colorPicker" value="#000000" title="Цвет заливки (C)">
+                        <input type="color" id="backgroundPicker" value="#eeaaff" title="Цвет фона (B)">
+                        <input type="color" id="colorPicker3" value="#ff0000" title="Цвет кисти 3">
+                        <input type="color" id="colorPicker4" value="#ffa500" title="Цвет кисти 4">
+                        <input type="color" id="colorPicker5" value="#ffff00" title="Цвет кисти 5">
+                        <input type="color" id="colorPicker6" value="#008000" title="Цвет кисти 6">
+                        <input type="color" id="colorPicker7" value="#00ffff" title="Цвет кисти 7">
+                        <input type="color" id="colorPicker8" value="#0000ff" title="Цвет кисти 8">
+                        <input type="color" id="colorPicker9" value="#800080" title="Цвет кисти 9">
+                    </div>
+                    <div class="word-navigation">
+                        <button id="previousWord" title="Предыдущее слово">&lt;</button>
+                        <p id="Quizz"></p>
+                        <button id="nextWord" title="Следующее слово">&gt;</button>
+                    </div>
+                    <div class="header-container">
+                        <div class="time-wrapper">
+                            <span id="time" class="time"></span>
+                            <span id="startTime" class="time"></span>
+                            <span id="elapsedTime" class="time"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="canv-container" id="canvasContainer">
+                </div>
+                <div class="slider-group">
+                    <div class="tools-column">
+                        <label for="opacity" title="Прозрачность">👻</label>
+                        <input type="range" id="opacity" min="1" max="100" value="100">
+                    </div>
+                    <div class="tools-column">
+                        <progress id="pressureBar" value="0" max="100"></progress>
+                        <label for="brushSize" title="Размер кисти">🖌️</label>
+                        <input type="range" id="brushSize" min="1" max="100" value="1">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    <script>
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+    // Initialize layers and contexts
+    const layers = {};
+    const contexts = {};
+    let currentLayer = 1;
+    let currentCtx;
+    let layerCount = 0;
+
+    // Initialize other variables
+    let isDrawing = false;
+    let lastX = 0;
+    let lastY = 0;
+    let symmetry = false;
+
+    // Get DOM elements
+    const brushSizeInput = document.getElementById('brushSize');
+    const opacityInput = document.getElementById('opacity');
+    const pressureBar = document.getElementById('pressureBar');
+    const backgroundPicker = document.getElementById('backgroundPicker');
+    const canvasContainer = document.getElementById('canvasContainer');
+    const layerButtons = document.getElementById('layerButtons');
+    const addLayerBtn = document.getElementById('addLayerBtn');
+    const removeLayerBtn = document.getElementById('removeLayerBtn');
+
+const eraserBtn = document.getElementById('eraserBtn');
+eraserBtn.addEventListener('click', toggleEraser);
+
+    // Initialize pressure-supported state
+    const isPressureSupported = 'onpointermove' in window;
+
+    // History management
+    let history = {}; // { 1: [], 2: [], ... } // layerNumber: [states]
+    let redoHistory = {}; // { 1: [], 2: [], ... }
+let isErasing = false;
+
+function toggleEraser() {
+  isErasing = !isErasing;
+
+  // Change the cursor to indicate eraser mode
+  if (isErasing) {
+    document.body.style.cursor = 'url(cursors/eraser.png), auto'; // Assuming you have an eraser cursor image
+  } else {
+    document.body.style.cursor = 'default';
+  }
+}
+
+
+    function createLayer() {
+        layerCount++;
+        const canvas = document.createElement('canvas');
+        canvas.id = `layer${layerCount}`;
+        canvas.width = 700;
+        canvas.height = 500;
+        canvas.style.position = 'absolute';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.zIndex = layerCount;
+
+        canvasContainer.appendChild(canvas);
+
+        layers[layerCount] = canvas;
+        contexts[layerCount] = canvas.getContext('2d');
+
+        const button = document.createElement('button');
+        button.textContent = layerCount;
+        button.classList.add('layer-button');
+        button.dataset.layer = layerCount;
+        layerButtons.appendChild(button);
+
+        button.addEventListener('click', function () {
+            setCurrentLayer(parseInt(this.dataset.layer));
+        });
+
+        addEventListenersToLayer(canvas); 
+        setCurrentLayer(layerCount);
+        initializeLayer(layerCount);
+
+        // Initialize history for the new layer
+        history[layerCount] = [];
+        redoHistory[layerCount] = [];
+    }
+
+    function removeLayer() {
+        if (layerCount > 1) {
+            const canvas = layers[layerCount];
+            canvas.remove();
+            delete layers[layerCount];
+            delete contexts[layerCount];
+
+            const button = layerButtons.lastChild;
+            button.remove();
+
+            // Remove history for the deleted layer
+            delete history[layerCount];
+            delete redoHistory[layerCount];
+
+            layerCount--;
+            setCurrentLayer(layerCount);
+        }
+    }
+
+    function setCurrentLayer(layerNum) {
+        currentLayer = layerNum;
+        currentCtx = contexts[currentLayer];
+        document.querySelectorAll('.layer-button').forEach(btn => {
+            btn.classList.remove('active-layer');
+            if (parseInt(btn.dataset.layer) === currentLayer) {
+                btn.classList.add('active-layer');
+            }
+        });
+        console.log('Switched to layer:', currentLayer, 'Context:', currentCtx);
+    }
+
+    function initializeLayer(layerNum) {
+        if (layerNum === 1) {
+            contexts[layerNum].fillStyle = '#' + Math.floor(Math.random() * 16777215).toString(16);
+        } else {
+            contexts[layerNum].fillStyle = 'rgba(0,0,0,0)'; // Transparent
+        }
+        contexts[layerNum].fillRect(0, 0, layers[layerNum].width, layers[layerNum].height);
+    }
+
+    function clearCanvas() {
+        if (!currentCtx) return;
+        let clearedCanvasState = currentCtx.getImageData(0, 0, layers[currentLayer].width, layers[currentLayer].height);
+        currentCtx.fillStyle = backgroundPicker.value;
+        currentCtx.fillRect(0, 0, layers[currentLayer].width, layers[currentLayer].height);
+        history[currentLayer].push(clearedCanvasState); // Save to the current layer's history
+        redoHistory[currentLayer] = []; // Clear redo history for the current layer
+    }
+
+    function saveState() {
+        if (!currentCtx) {
+            console.error('Error: currentCtx is undefined in saveState. Current layer:', currentLayer);
+            return;
+        }
+        history[currentLayer].push(currentCtx.getImageData(0, 0, layers[currentLayer].width, layers[currentLayer].height));
+        redoHistory[currentLayer] = [];
+        console.log('State saved for layer:', currentLayer);
+    }
+
+    function startDrawing(e) {
+        if (!currentCtx) {
+            console.error('Error: currentCtx is undefined in startDrawing. Current layer:', currentLayer);
+            return;
+        }
+        isDrawing = true;
+        const rect = layers[currentLayer].getBoundingClientRect();
+        [lastX, lastY] = [e.clientX - rect.left, e.clientY - rect.top];
+    }
+
+    function draw(e) {
+        if (!isDrawing || !currentCtx) {
+            if (!currentCtx) {
+                console.error('Error: currentCtx is undefined in draw. Current layer:', currentLayer);
+            }
+            return;
+        }
+
+        e.preventDefault();
+        const rect = layers[currentLayer].getBoundingClientRect();
+
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const pressure = e.pressure || 1;
+
+        currentCtx.lineWidth = brushSizeInput.value * pressure;
+        currentCtx.lineCap = 'round';
+        currentCtx.lineJoin = 'round';
+        currentCtx.globalAlpha = opacityInput.value / 100;
+
+if (isErasing) {
+    // Erasing mode
+    currentCtx.globalCompositeOperation = 'destination-out'; // This makes the stroke transparent
+  } else {
+    // Drawing mode
+    currentCtx.globalCompositeOperation = 'source-over'; // This is the default drawing mode
+    currentCtx.strokeStyle = colorPicker.value; // Set stroke color only when not erasing
+  }
+
+        currentCtx.beginPath();
+        currentCtx.moveTo(lastX, lastY);
+        currentCtx.lineTo(x, y);
+        currentCtx.stroke();
+
+        if (symmetry) {
+            const centerX = layers[currentLayer].width / 2;
+            const symmetricLastX = centerX + (centerX - lastX);
+            const symmetricX = centerX + (centerX - x);
+            currentCtx.beginPath();
+            currentCtx.moveTo(symmetricLastX, lastY);
+            currentCtx.lineTo(symmetricX, y);
+            currentCtx.stroke();
+        }
+
+        [lastX, lastY] = [x, y];
+
+        if (isPressureSupported) {
+            pressureBar.value = pressure * 100;
+        }
+    }
+
+    function stopDrawing() {
+        if (isDrawing) {
+            isDrawing = false;
+            saveState();
+        }
+    }
+
+    function setDrawingColor(color) {
+        if (currentCtx) {
+            currentCtx.strokeStyle = color;
+        }
+    }
+
+    // Event Listeners
+    addLayerBtn.addEventListener('click', createLayer);
+    removeLayerBtn.addEventListener('click', removeLayer);
+
+    eyedropperBtn.addEventListener('click', () => {
+        isEyedropperActive = !isEyedropperActive;
+        if (isEyedropperActive) {
+            layers[currentLayer].classList.add('pipetteCursor');
+        } else {
+            layers[currentLayer].classList.remove('pipetteCursor');
+        }
+    });
+
+    const colorPickers = document.querySelectorAll('input[type="color"]');
+    colorPickers.forEach(picker => {
+        picker.addEventListener('input', (event) => {
+            setDrawingColor(event.target.value);
+        });
+    });
+
+    document.addEventListener('touchstart', function (e) {
+        if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT') {
+            e.preventDefault();
+        }
+    }, { passive: false });
+
+    function addEventListenersToLayer(layer) {
+        layer.addEventListener('pointerdown', startDrawing);
+        layer.addEventListener('pointermove', draw);
+        layer.addEventListener('pointerup', stopDrawing);
+        layer.addEventListener('pointerout', stopDrawing);
+        layer.addEventListener('pointercancel', stopDrawing);
+    }
+
+    document.querySelectorAll('button, input').forEach(element => {
+        element.addEventListener('pointerdown', (e) => {
+            e.stopPropagation();
+        });
+    });
+
+    function resizeCanvas() {
+        const rect = canvasContainer.getBoundingClientRect();
+        Object.values(layers).forEach(layer => {
+            layer.width = rect.width * devicePixelRatio;
+            layer.height = rect.height * devicePixelRatio;
+            layer.getContext('2d').scale(devicePixelRatio, devicePixelRatio);
+        });
+        Object.keys(layers).forEach(layerNum => initializeLayer(parseInt(layerNum)));
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+
+    // Initialize the first layer
+    createLayer();
+    setDrawingColor(document.getElementById('colorPicker').value);
+    resizeCanvas();
+
+    // Добавляем слушатели событий к существующим слоям
+    Object.values(layers).forEach(addEventListenersToLayer);
+
+    // ... (Your other JavaScript code for flood fill, download, undo, redo, eyedropper) ...
+
+    function undo() {
+        if (history[currentLayer].length > 1) { 
+            redoHistory[currentLayer].push(history[currentLayer].pop());
+            let previousState = history[currentLayer][history[currentLayer].length - 1];
+            contexts[currentLayer].clearRect(0, 0, layers[currentLayer].width, layers[currentLayer].height);
+            contexts[currentLayer].putImageData(previousState, 0, 0);
+        }
+    }
+
+    function redo() {
+        if (redoHistory[currentLayer].length > 0) {
+            history[currentLayer].push(redoHistory[currentLayer].pop());
+            let nextState = history[currentLayer][history[currentLayer].length - 1];
+            contexts[currentLayer].clearRect(0, 0, layers[currentLayer].width, layers[currentLayer].height);
+            contexts[currentLayer].putImageData(nextState, 0, 0);
+        }
+    }
+
+
+function downloadImage() {
+  // Create a temporary canvas to merge all layers
+  const mergeCanvas = document.createElement('canvas');
+  const mergeCtx = mergeCanvas.getContext('2d');
+  mergeCanvas.width = layers[1].width; // Assuming all layers have the same size
+  mergeCanvas.height = layers[1].height;
+
+  // Draw each layer onto the temporary canvas
+  for (let i = 1; i <= layerCount; i++) {
+    mergeCtx.drawImage(layers[i], 0, 0);
+  }
+
+  // Create a link and trigger the download
+  const link = document.createElement('a');
+  link.download = 'my-drawing.png';
+  link.href = mergeCanvas.toDataURL('image/png');
+  link.click();
+}
+
+
+
+
+
+    </script>
+    <script src="cursors.js" defer></script>
+    <script src="script.js" defer></script>
+    <script type="module" src="main.js" defer></script>
+    <script type="module" src="hotkey.js" defer></script>
+    <script type="module" src="test.js" defer></script>
+    <script type="module" src="settings.js" defer></script>
+    <script type="module" src="helperFunction.js" defer></script>
+    <script type="module" src="tools.js" defer></script>
+</body>
+
+</html>

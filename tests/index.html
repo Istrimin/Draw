@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Просмотр курсоров</title>
+  <style>
+    #cursorContainer {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .cursorPreview {
+      margin: 10px;
+      border: 1px solid #ccc;
+      padding: 5px;
+    }
+
+    .cursorPreview img {
+      width: 32px;
+      height: 32px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Просмотр курсоров</h1>
+  <div id="cursorContainer"></div>
+
+  <script>
+    // Функция для загрузки и отображения курсоров
+    function loadCursors() {
+      fetch('get-cursors.php') 
+        .then(response => response.json())
+        .then(cursors => {
+          const cursorContainer = document.getElementById('cursorContainer');
+          
+          if (cursors.error) {
+            console.error('Ошибка при получении курсоров:', cursors.error);
+            return;
+          }
+
+          cursors.forEach(cursor => {
+            const cursorDiv = document.createElement('div');
+            cursorDiv.classList.add('cursorPreview');
+
+            const cursorImg = document.createElement('img');
+            cursorImg.src = cursor.image; 
+            cursorImg.alt = cursor.name;
+
+            cursorDiv.appendChild(cursorImg);
+            cursorContainer.appendChild(cursorDiv);
+          });
+        })
+        .catch(error => console.error('Ошибка при загрузке курсоров:', error));
+    }
+
+    // Загрузка курсоров при загрузке страницы
+    loadCursors();
+  </script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+body {
+  background-image: url('../images/bg_index.jpg');
+  background-color: transparent;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+
+h1 {
+  color: rgb(255, 255, 255);
+  font-size: 400px;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+h2 {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+
+}
+
+a[title="Играть"] {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+a[title="Рисовать"]:hover {
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 110px;
+}
+
+a[title="Рисовать"] {
+  font-size: 100px;
+  padding: 20px;
+  text-decoration: none;
+
+}
+
+.header-container {
+  text-align: center;
+  background-color: transparent;
+}
+
+.header-container a {
+  display: block;
+  margin-top: 20px;
+}
+
+.column-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#cursorList {
+  background-color: transparent;
+  padding: 10px;
+  margin-top: 5px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+#cursorList div {
+  padding: 5px;
+  margin-bottom: 2px;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+#cursorList div:hover {
+  background-color: #560000;
+  border-color: #999;
+}
+
+.time {
+  background-color: transparent;
+  color: #ffffff;
+  font-family: monospace;
+  font-size: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+body.no-drop {
+  cursor: not-allowed;
+}

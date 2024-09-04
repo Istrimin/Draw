@@ -1,83 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+<head>
+    <!-- ...
+    <link rel="preload" href="images/dream3.png" as="image">
+    <link rel="preload" href="images/dream3.png" as="image">
+    <link rel="preload" href="images/dream3.png" as="image">
+    <link rel="preload" href="images/dream4.png" as="image">
+    <link rel="preload" href="images/cancer.png" as="image"> 
+    ... -->
+</head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Draw</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
-    <script src="cursors.js"></script>
-    <!-- <script src ="canvas.js"></script> -->
-    <script src="script.js" defer></script>
-<script type="module" src="tools.js" defer></script> 
-<script type="module" src="hotkey.js" defer></script> 
-    <!-- <script src="tools.js" defer></script> -->
-    
-    
-</head>
 
+    <link rel="stylesheet" href="css/index.css"> 
+    <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+    <script type="module" src="settings.js" defer"></script>
+    <style>
+.image-row {
+  display: flex;
+  flex-direction: row;
+  gap: 30px; /*  Установите желаемый отступ */
+}
+
+.no-underline {
+  text-decoration: none;
+}
+
+    </style>
+</head>
 <body>
-    <div class="base-container">
-        <div class="container">
-            <div class="button-column" style="overflow-y: auto;">
-                <label for="imageInput">
-                    <button id="UploadButton" title="Загрузить изображение">🌺</button>
-                </label>
-                <input type="file" id="imageInput" accept="image/*" style="display: none;">
-                <button id="saveImageBtn" title="Сохранить изображение">🎬 </button>
-                <button id="eraser" title="Ластик">💩</button>
-                <button id="undo" title="Отменить">⟲ </button>
-                <button id="redo" title="Повторить">⟳ </button>
-                <button id="clear" title="Очистить">💀</button>
-                <button id="symmetry" title="Симметрия" class="active">🦋</button>
-                <button id="fillModeBtn" title="Заливка">🌊</button> 
-                
-                <button id="floodFillBtn" title="Залить цветом">✨</button> 
-                <button id="eyedropperBtn" title="Пипетка">💧</button>
-                <div class="tools">
-                    <div class="color-picker-group">
-                        <input type="color" id="
-backgroundPicker" value="#ffffff" title="Цвет фона">
-                        <input type="color" id="colorPicker" value="#000000" title="Цвет кисти">
-                    </div>
-                </div>
-                <button id="changeCursorBtn" title="Сменить курсор">🎨</button>
-                <button id="inviteFriends" title="Пригласить друзей"> 👥</button>
-                <button id="addToFavorites" title="Добавить в избранное">📌</button>
-                <button id="settings" title="Настройки">⚙️</button>
-            </div>
-        </div>
-        <div class="canvas-and-sliders">
-            <div class="container">
-                <canvas id="drawingCanvas" width="820" height="500"></canvas>
-            </div>
-            <div class="slider-group">
-                <div class="tools-column">
-                    <label for="opacity" title="Прозрачность">👻</label>
-                    <input type="range" id="opacity" min="1" max="100" value="100">
-                </div>
-                <div class="tools-column">
-                    <label for="brushSize" title="Размер кисти">🖌️</label>
-                    <input type="range" id="brushSize" min="1" max="100" value="1">
-                </div>
-            </div>
-        </div>
+    <div class="header-container">
+        <div id="time" class="time"></div> <div 
+<div class="column-container">
+  <img src="" id="randomImage" width="200" alt="Рисуйка">
+</div>
+        <h2>Привет художник!</h2> 
+        <class class="image-row">
+
+<a href="main.html" target="_self" title="Я про" class="no-underline" style="font-size:6em;">🖍️</a> 
+
+        <a href="cancer.html" target="_self" title="Я рак">
+        <img src="images/cancer.png" width="100">
+        </a>
+</class>
+
     </div>
-    <!-- Добавляем вкладку с курсорами -->
-    <div id="cursorPanel" class="cursor-panel" style="display: none;">
-        <h3>Выберите курсор</h3>
-        <div id="cursorList">
-            <!-- Здесь будут отображаться доступные курсоры -->
-        </div>
-    </div>
+
     <script>
         vkBridge.send('VKWebAppInit');
-        
-        
+
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // JavaScript code to update the time
+        function updateTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            const timeString = `${hours}:${minutes}:${seconds}`;
+            document.getElementById('time').textContent = timeString;
+        }
+
+        // Update the time every second
+        setInterval(updateTime, 1000); 
+
+
+
+  const images = [
+    'images/dream3.png',
+    'images/dream3.png', 
+    'images/dream3.png',
+    "images/dream4.png"
+    // Добавьте сюда пути к другим изображениям
+  ];
+
+  function getRandomImage(images) {
+    const randomIndex = Math.floor(Math.random() * images.length);
+    return images[randomIndex];
+  }
+
+  const randomImageUrl = getRandomImage(images);
+  document.getElementById('randomImage').src = randomImageUrl;
     </script>
 </body>
-
 </html>
